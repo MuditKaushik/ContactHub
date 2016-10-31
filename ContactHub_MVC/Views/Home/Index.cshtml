@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Html.DropDownList("contries",Enumerable.Empty<SelectListItem>(),new { @class="form-control",@id="contryList"})

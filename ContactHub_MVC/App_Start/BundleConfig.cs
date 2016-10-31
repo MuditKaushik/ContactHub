@@ -11,31 +11,31 @@ namespace ContactHub_MVC
         public static void RegisterBundles(BundleCollection bundle)
         {
             //jQuery and jQuery-Validaion
-            bundle.Add(new ScriptBundle("/Script/jQuery").Include(
+            bundle.Add(new ScriptBundle("~/Script/jQuery").Include(
                 "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.validate*"
+                "~/Scripts/jquery.validate.js"
                 ));
             //jQuery unobstrusive js
-            bundle.Add(new ScriptBundle("/Script/jQuery-Unobtrusive").Include(
-                "~/Scripts/jquery.validate.unobtrusive*"));
+            bundle.Add(new ScriptBundle("~/Script/jQuery-Unobtrusive").Include(
+                "~/Scripts/jquery.validate.unobtrusive.js"));
             //Bootstrap js
-            bundle.Add(new ScriptBundle("/Script/bootstrap").Include(
+            bundle.Add(new ScriptBundle("~/Script/bootstrap").Include(
                 "~/Scripts/bootstrap*"));
             //Respond js
-            bundle.Add(new ScriptBundle("/Script/respond").Include(
+            bundle.Add(new ScriptBundle("~/Script/respond").Include(
                 "~/Scripts/respond*"));
             //Modernizer js
-            bundle.Add(new ScriptBundle("/Script/modernizer").Include(
-                "~/Scripts/modernizr-{version}.js"));
+            bundle.Add(new ScriptBundle("~/Script/modernizer").Include(
+                "~/Scripts/modernizr-*"));
             //custom js
-            bundle.Add(new ScriptBundle("/Script/").Include());
+            bundle.Add(new ScriptBundle("~/Script/app").Include());
 
             /*--------------------Stylesheet bundles--------------------*/
             //bootstrap css
-            bundle.Add(new StyleBundle("/Script/bootstrap").Include(
+            bundle.Add(new StyleBundle("~/Content/bootstrap").Include(
                 "~/Content/bootstrap*"));
             //custom css
-            bundle.Add(new StyleBundle("/Script/site").Include("~/Content/Site.css"));
+            bundle.Add(new StyleBundle("~/Content/site").Include("~/Content/Site.css"));
 
             BundleTable.EnableOptimizations = false;
         }
