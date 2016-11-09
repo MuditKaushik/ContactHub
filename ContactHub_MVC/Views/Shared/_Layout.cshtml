@@ -6,7 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/site")
+    @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/Script/modernizer")
+    @Scripts.Render("~/Script/es6-module-loader")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,8 +22,7 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+                <ul class="nav navbar-nav"></ul>
             </div>
         </div>
     </div>
@@ -32,6 +33,11 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="loader">
+        <div class="modal-dialog text-center" role="document">
+            <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw spinnerColor"></i>
+        </div>
     </div>
     @Scripts.Render("~/Script/jQuery")
     @Scripts.Render("~/Script/bootstrap")

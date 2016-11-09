@@ -15,4 +15,8 @@ select,
 textarea {
     max-width: 280px;
 }
-
+/*Spinner color*/
+.spinnerColor{
+    color:deepskyblue !important;
+    margin:50% 0 0 0;
+}

@@ -12,28 +12,32 @@ namespace ContactHub_MVC
         {
             //jQuery and jQuery-Validaion
             bundle.Add(new ScriptBundle("~/Script/jQuery").Include(
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.validate.js"
+                "~/Scripts/jQuery/jquery-{version}.js",
+                "~/Scripts/jQuery/jquery.validate.js"
                 ));
             //jQuery unobstrusive js
             bundle.Add(new ScriptBundle("~/Script/jQuery-Unobtrusive").Include(
-                "~/Scripts/jquery.validate.unobtrusive.js"));
+                "~/Scripts/jQuery/jquery.validate.unobtrusive.js"));
             //Bootstrap js
             bundle.Add(new ScriptBundle("~/Script/bootstrap").Include(
-                "~/Scripts/bootstrap*"));
+                "~/Scripts/bootstrap/bootstrap*"));
             //Respond js
             bundle.Add(new ScriptBundle("~/Script/respond").Include(
-                "~/Scripts/respond*"));
+                "~/Scripts/respond/respond*"));
             //Modernizer js
             bundle.Add(new ScriptBundle("~/Script/modernizer").Include(
-                "~/Scripts/modernizr-*"));
-            //custom js
-            bundle.Add(new ScriptBundle("~/Script/app").Include());
-
+                "~/Scripts/modernizr/modernizr-*"));
+            //es6-module-loader
+            bundle.Add(new ScriptBundle("~/Script/es6-module-loader").Include(
+                "~/Scripts/traceur/traceur.js",
+                "~/Scripts/es6ModuleLoader/es6-module-loader-dev.js"));
             /*--------------------Stylesheet bundles--------------------*/
             //bootstrap css
             bundle.Add(new StyleBundle("~/Content/bootstrap").Include(
                 "~/Content/bootstrap*"));
+            //fontawesome
+            bundle.Add(new StyleBundle("~/Content/fontawesome").Include(
+                "~/Content/font-awesome.css"));
             //custom css
             bundle.Add(new StyleBundle("~/Content/site").Include("~/Content/Site.css"));
 

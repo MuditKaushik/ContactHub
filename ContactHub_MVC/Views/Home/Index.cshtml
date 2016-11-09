@@ -1,8 +1,10 @@
-﻿@{
+﻿@model ContactHub_MVC.Models.SignupModel.SignupViewModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
-@Html.DropDownList("contries",Enumerable.Empty<SelectListItem>(),new { @class="form-control",@id="contryList"})
+@Html.DropDownListFor(m=>m.Country,Enumerable.Empty<SelectListItem>(),"Select",new { @class="form-control",@id="contryList"})
+<script>System.import("../Scripts/app/signup.js")</script>
