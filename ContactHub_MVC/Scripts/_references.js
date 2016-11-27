@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="app/signup.js" />
 /// <reference path="app/Util.js" />
+/// <reference path="app/validationutil.js" />
 /// <reference path="bootstrap/bootstrap.js" />
 /// <reference path="es6moduleloader/es6-module-loader.js" />
 /// <reference path="es6moduleloader/es6-module-loader.src.js" />

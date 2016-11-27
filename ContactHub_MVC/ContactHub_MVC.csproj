@@ -126,6 +126,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\app\signup.js" />
     <Content Include="Scripts\app\Util.js" />
+    <Content Include="Scripts\app\validationUtil.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="CommonData\contries.json" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader-dev.js.map" />
@@ -167,6 +168,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataAccessLayer\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +191,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactHub_ApiCaller\ContactHub_ApiCaller.csproj">
+      <Project>{75c4cdb7-3563-4d96-a209-db76741e221a}</Project>
+      <Name>ContactHub_ApiCaller</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

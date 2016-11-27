@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Xml.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using ContactHub_MVC.DataAccessLayer;
 using ContactHub_MVC.Models.SignupModel;
 
 namespace ContactHub_MVC.Controllers
@@ -13,11 +10,17 @@ namespace ContactHub_MVC.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
             var model = new SignupViewModel() {
                 CountryList = GetJsonCountryList()
             };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Index(SignupViewModel model)
+        {
             return View(model);
         }
         [HttpGet]
