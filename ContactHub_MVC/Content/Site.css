@@ -7,6 +7,11 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background:url("../Images/intro-bg.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    height:100vh;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

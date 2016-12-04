@@ -1,20 +1,26 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContactHub_MVC.Models.SignupModel
 {
     public class SignupViewModel
     {
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string EmailAddress { get; set; }
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string ConfirmPassword { get; set; }
+        [Required]
         public string Country { get; set; }
+        [Required]
         public CountryList CountryList { get; set; }
     }
     public class CountryList

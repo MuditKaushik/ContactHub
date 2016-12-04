@@ -6,60 +6,65 @@
 
 <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModal-label">Registration</h4>
-        </div>
-        <div class="modal-body">
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
             {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModal-label">Registration</h4>
+            </div>
+            <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">First Name</label>
                     <div class="col-sm-8 col-md-8">
                         @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control" })
-                        <span id="firstname_error"></span>
+                        @Html.ValidationMessageFor(x => x.FirstName)
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">Last Name</label>
                     <div class="col-sm-8">
                         @Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control" })
-                        <span id="lastname_error"></span>
+                        @Html.ValidationMessageFor(x => x.LastName)
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">Email Address</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(m => m.EmailAddress, new { @type = "text", @class = "form-control" })
-                        <span id="emailAddress_error"></span>
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmailAddress)
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">Username</label>
                     <div class="col-sm-8">
                         @Html.DropDownListFor(m => m.Country, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "contryList" })
-                        <span id="country_error"></span>
+                        @Html.ValidationMessageFor(x => x.Country)
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">Password</label>
                     <div class="col-sm-8">
-                        @Html.PasswordFor(m => m.Password, new { @type = "text", @class = "form-control" })
-                        <span id="password_error"></span>
+                        @Html.PasswordFor(m => m.Password, new {@class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Password)
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="form-group-input">Confirm Password</label>
                     <div class="col-sm-8">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @type = "text", @class = "form-control" })
-                        <span id="confirmPassword_error"></span>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ConfirmPassword)
                     </div>
                 </div>
-            }
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default">Close</button>
-            <button type="button" class="btn btn-primary" id="save">Save</button>
-        </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        }
     </div>
 </div>
+@Scripts.Render("~/Script/jQuery")
+@Scripts.Render("~/Script/jQuery-Unobtrusive")
+@Scripts.Render("~/Script/bootstrap")
 <script>System.import("../Scripts/app/signup.js")</script>

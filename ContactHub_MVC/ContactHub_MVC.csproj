@@ -124,6 +124,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\intro-bg.jpg" />
+    <Content Include="Images\wooden.jpg" />
     <Content Include="Scripts\app\signup.js" />
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
