@@ -11,7 +11,7 @@
     background-size:cover;
     background-repeat:no-repeat;
     background-position:center;
-    height:100vh;
+    height:89vh;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -24,4 +24,33 @@ textarea {
 .spinnerColor{
     color:deepskyblue !important;
     margin:50% 0 0 0;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+select.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
 }

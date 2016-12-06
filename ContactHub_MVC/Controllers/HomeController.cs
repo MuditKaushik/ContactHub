@@ -13,15 +13,28 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new SignupViewModel() {
-                CountryList = GetJsonCountryList()
-            };
-            return View(model);
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Registration()
+        {
+            return View();
         }
         [HttpPost]
-        public ActionResult Index(SignupViewModel model)
+        public ActionResult Registration(SignupViewModel model)
         {
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(SigninViewModel model)
+        {
+            return View();
         }
         [HttpGet]
         public JsonResult GetCountryListXml()

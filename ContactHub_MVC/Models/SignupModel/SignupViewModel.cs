@@ -11,6 +11,7 @@ namespace ContactHub_MVC.Models.SignupModel
         [Required]
         public string LastName { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]
         public string Username { get; set; }
