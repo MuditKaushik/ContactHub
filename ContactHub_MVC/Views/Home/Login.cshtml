@@ -14,16 +14,16 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Username</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d=>d.Username)</label>
                     <div class="col-sm-8 col-md-8">
                         @Html.TextBoxFor(m => m.Username , new { @type = "text", @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Username)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Password</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d=>d.Password)</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(m => m.Password, new { @type = "text", @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Password)
                     </div>
                 </div>

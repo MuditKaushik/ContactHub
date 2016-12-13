@@ -14,49 +14,49 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">First Name</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.FirstName)</label>
                     <div class="col-sm-8 col-md-8">
                         @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.FirstName)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Last Name</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.LastName)</label>
                     <div class="col-sm-8">
                         @Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.LastName)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Email Address</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.EmailAddress)</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control" })
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.EmailAddress)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Country</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.Country)</label>
                     <div class="col-sm-8">
                         @Html.DropDownListFor(m => m.Country, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "contryList" })
                         @Html.ValidationMessageFor(x => x.Country)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Username</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.Username)</label>
                     <div class="col-sm-8">
                         @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Username)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Password</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.Password)</label>
                     <div class="col-sm-8">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Password)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="form-group-input">Confirm Password</label>
+                    <label class="col-sm-4 control-label" for="form-group-input">@Html.DisplayNameFor(d => d.ConfirmPassword)</label>
                     <div class="col-sm-8">
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.ConfirmPassword)

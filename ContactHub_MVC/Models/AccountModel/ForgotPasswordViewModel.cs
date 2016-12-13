@@ -4,7 +4,7 @@ namespace ContactHub_MVC.Models.AccountModel
 {
     public class ForgotPasswordViewModel
     {
-        [Display(Name = "Email Address")]
+        [Display(Name = "EmailAddress",ResourceType =typeof(MessageResource))]
         [DataType(DataType.EmailAddress)]
         [Required(AllowEmptyStrings =false, ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "RequiredFeilds" )]
         [RegularExpression(ContactHubConstants.EmailRegularexpression, ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "InvalidEmail")]

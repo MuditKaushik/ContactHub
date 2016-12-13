@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using ContactHub_MVC.DataAccessLayer;
+using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.AccountModel;
 
 namespace ContactHub_MVC.Controllers
@@ -52,7 +52,7 @@ namespace ContactHub_MVC.Controllers
         protected CountryList GetXmlCountryList()
         {
             var countryData = new List<SelectListItem>();
-            var xmlPath = Server.MapPath(@"~/CommonData/countries.xml");
+            var xmlPath = Server.MapPath(ContactHubConstants.CountryFilePath);
             var xmlDocument = XDocument.Load(xmlPath);
             var elements = xmlDocument.Element("countries").Elements("country");
             foreach (var item in elements)
@@ -68,7 +68,7 @@ namespace ContactHub_MVC.Controllers
         protected CountryList GetJsonCountryList()
         {
             var countryData = new List<SelectListItem>();
-            var jsonPath = Server.MapPath(@"~/CommonData/contries.json");
+            var jsonPath = Server.MapPath(ContactHubConstants.CountryFilePath);
             var jsonFile = System.IO.File.ReadAllText(jsonPath); 
             var jsonDocument = JsonConvert.DeserializeObject<dynamic>(jsonFile);
             foreach (var item in jsonDocument)
