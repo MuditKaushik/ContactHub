@@ -5,13 +5,13 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-bottom:50px;
     background:url("../Images/intro-bg.jpg");
     background-size:cover;
     background-repeat:no-repeat;
-    background-position:center;
-    height:89vh;
+    /*background-position:center;*/
+    background-attachment:fixed;
+    height:90vh;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

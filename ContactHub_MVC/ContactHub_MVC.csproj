@@ -105,7 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CommonData\countries.xml" />
+    <Content Include="CommonData\Files\countries.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -131,7 +131,7 @@
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
-    <Content Include="CommonData\contries.json" />
+    <Content Include="CommonData\Files\contries.json" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader-dev.js.map" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader.js.map" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -170,13 +170,20 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonData\Constants\ContactHubConstants.cs" />
+    <Compile Include="MessageResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccessLayer\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SignupModel\SigninViewModel.cs" />
-    <Compile Include="Models\SignupModel\SignupViewModel.cs" />
+    <Compile Include="Models\AccountModel\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\AccountModel\SigninViewModel.cs" />
+    <Compile Include="Models\AccountModel\SignupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +195,7 @@
     <Content Include="Scripts\traceur\traceur.js.map" />
     <Content Include="Views\Home\Registration.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -203,6 +211,12 @@
       <Project>{75c4cdb7-3563-4d96-a209-db76741e221a}</Project>
       <Name>ContactHub_ApiCaller</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MessageResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

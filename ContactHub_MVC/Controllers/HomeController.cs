@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using ContactHub_MVC.DataAccessLayer;
-using ContactHub_MVC.Models.SignupModel;
+using ContactHub_MVC.Models.AccountModel;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -36,6 +36,13 @@ namespace ContactHub_MVC.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public JsonResult GetCountryListXml()
         {

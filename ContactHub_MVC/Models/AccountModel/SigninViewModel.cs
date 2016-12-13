@@ -1,4 +1,4 @@
-﻿namespace ContactHub_MVC.Models.SignupModel
+﻿namespace ContactHub_MVC.Models.AccountModel
 {
     public class SigninViewModel
     {

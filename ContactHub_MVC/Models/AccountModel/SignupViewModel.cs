@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ContactHub_MVC.Models.SignupModel
+namespace ContactHub_MVC.Models.AccountModel
 {
     public class SignupViewModel
     {
