@@ -1,17 +1,15 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-bottom:50px;
-    background:url("../Images/intro-bg.jpg");
+    background-image:url("../Images/intro-bg.jpg");
     background-size:cover;
     background-repeat:no-repeat;
     background-position:center;
     background-attachment:fixed;
-    height:90vh;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-top: 32px;
+    padding-bottom:50px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

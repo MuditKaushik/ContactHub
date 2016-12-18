@@ -7,6 +7,7 @@
 /// <reference path="es6moduleloader/es6-module-loader.src.js" />
 /// <reference path="es6moduleloader/es6-module-loader-dev.js" />
 /// <reference path="es6moduleloader/es6-module-loader-dev.src.js" />
+/// <reference path="jquery.validate.min.js" />
 /// <reference path="jquery/jquery.validate.js" />
 /// <reference path="jquery/jquery.validate.unobtrusive.js" />
 /// <reference path="jquery/jquery-3.1.1.js" />

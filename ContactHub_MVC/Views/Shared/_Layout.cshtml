@@ -15,19 +15,14 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".userLinks">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("ContactHub", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse nav navbar-nav navbar-right">
-                <ul class="nav navbar-nav">
-                    <li><a href="@Url.Action("Registration","Home")">Registration</a></li>
-                    <li><a href="@Url.Action("Login","Home")">Login</a></li>
-                </ul>
-            </div>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
     <div class="container-fluid body-content">

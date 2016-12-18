@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactHub_MVC", "ContactHu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactHub_MVC.Tests", "ContactHub_MVC.Tests\ContactHub_MVC.Tests.csproj", "{BE40DEBD-494E-4AF5-938F-5CBE04D33DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactHub_ApiCaller", "ContactHub_ApiCaller\ContactHub_ApiCaller.csproj", "{75C4CDB7-3563-4D96-A209-DB76741E221A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{BE40DEBD-494E-4AF5-938F-5CBE04D33DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE40DEBD-494E-4AF5-938F-5CBE04D33DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE40DEBD-494E-4AF5-938F-5CBE04D33DDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75C4CDB7-3563-4D96-A209-DB76741E221A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75C4CDB7-3563-4D96-A209-DB76741E221A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75C4CDB7-3563-4D96-A209-DB76741E221A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75C4CDB7-3563-4D96-A209-DB76741E221A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
