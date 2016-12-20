@@ -11,18 +11,18 @@ else
 {
     <div class="navbar-collapse collapse userLinks nav navbar-nav">
         <ul class="nav navbar-nav">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Search Contacts</a></li>
-            <li><a href="#">Add Contacts</a></li>
-            <li><a href="#">Edit Contacts</a></li>
-            <li><a href="#">Sync Contacts</a></li>
-            <li><a href="#">Setting</a></li>
+            <li><a href="@Url.Action("Dashboard","User")" class="userLink dashboard">Dashboard</a></li>
+            <li><a href="@Url.Action("SearchContacts","User")" class="userLink searchcontacts">Search Contacts</a></li>
+            <li><a href="@Url.Action("AddContacts","User")" class="userLink addcontacts">Add Contacts</a></li>
+            <li><a href="@Url.Action("EditContacts","User")" class="userLink editcontacts">Edit Contacts</a></li>
+            <li><a href="@Url.Action("SyncContacts","User")" class="userLink synccontacts">Sync Contacts</a></li>
+            <li><a href="@Url.Action("Settings","User")" class="userLink settings">Setting</a></li>
         </ul>
     </div>
     <div class="navbar-collapse collapse nav navbar-nav navbar-right">
         <ul class="nav navbar-nav">
             <li><a href="#">Username</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="@Url.Action("Logout","Home")">Logout</a></li>
         </ul>
     </div>
 }

@@ -40,5 +40,24 @@ class ValidationUtil{
         }
         return;
     }
+
+    HighlightUserLink(pageName){
+        this.RemoveHighlightUserLink();
+        $("."+pageName.toLowerCase()).closest("li").addClass("active");
+        return;
+    }
+
+    RemoveHighlightUserLink() {
+        var allUserLinks = $(".userLink");
+        allUserLinks.each(function(key,val){
+            var element = $(val).closest("li");
+            var isActive = element.hasClass("active");
+            if(isActive){
+                element.removeClass("active");
+            }
+        });
+        return;
+    };
+
 }
 export {ValidationUtil}

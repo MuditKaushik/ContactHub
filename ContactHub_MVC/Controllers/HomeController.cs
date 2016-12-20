@@ -42,6 +42,11 @@ namespace ContactHub_MVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            return RedirectToActionPermanent("Login", "Home");
+        }
 
         [HttpGet]
         public JsonResult GetCountryListXml()

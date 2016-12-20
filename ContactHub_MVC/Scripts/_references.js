@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="app/account.js" />
 /// <reference path="app/signup.js" />
 /// <reference path="app/Util.js" />
 /// <reference path="app/validationutil.js" />

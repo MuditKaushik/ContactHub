@@ -127,6 +127,7 @@
     <Content Include="Images\background.jpg" />
     <Content Include="Images\intro-bg.jpg" />
     <Content Include="Images\wooden.jpg" />
+    <Content Include="Scripts\app\Account.js" />
     <Content Include="Scripts\app\signup.js" />
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
@@ -174,6 +175,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CommonData\Constants\ContactHubConstants.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="MessageResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,6 +203,12 @@
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_SocialLinks.cshtml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\User\SearchContacts.cshtml" />
+    <Content Include="Views\User\AddContacts.cshtml" />
+    <Content Include="Views\User\EditContacts.cshtml" />
+    <Content Include="Views\User\SyncContacts.cshtml" />
+    <Content Include="Views\User\Settings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
