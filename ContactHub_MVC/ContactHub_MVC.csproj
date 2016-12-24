@@ -189,6 +189,8 @@
     <Compile Include="Models\AccountModel\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountModel\SigninViewModel.cs" />
     <Compile Include="Models\AccountModel\SignupViewModel.cs" />
+    <Compile Include="Models\UserModel\AddContactsViewModel.cs" />
+    <Compile Include="Models\UserModel\SearchContactsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,12 +205,12 @@
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_SocialLinks.cshtml" />
-    <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Views\User\SearchContacts.cshtml" />
     <Content Include="Views\User\AddContacts.cshtml" />
     <Content Include="Views\User\EditContacts.cshtml" />
     <Content Include="Views\User\SyncContacts.cshtml" />
     <Content Include="Views\User\Settings.cshtml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

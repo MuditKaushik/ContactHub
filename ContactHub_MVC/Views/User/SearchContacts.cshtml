@@ -1,4 +1,4 @@
-﻿
+﻿@model ContactHub_MVC.Models.UserModel.SearchContactsViewModel
 @{
     ViewBag.Title = "SearchContacts";
 }
@@ -6,5 +6,34 @@
 <div class="page-header">
     <h2 class="forColorWhite">Search Contacts</h2>
 </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#searchMenu" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="searchMenu">
+            @using (Ajax.BeginForm("", "", new AjaxOptions() { }, new { @class = "navbar-form navbar-left form-inline", @role = "search" }))
+            {
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.NickName, new { @class = "form-control col-md-3 col-sm-3 col-xs-3", @placeholder = Html.DisplayNameFor(n => n.NickName).ToString().ToLower() })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control col-md-3 col-sm-3 col-xs-3", @placeholder = Html.DisplayNameFor(n => n.EmailAddress).ToString().ToLower() })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control col-md-3 col-sm-3 col-xs-3", @placeholder = Html.DisplayNameFor(n => n.Phone).ToString().ToLower() })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.DOB, new { @class = "form-control col-md-3 col-sm-3 col-xs-3", @placeholder = Html.DisplayNameFor(n => n.DOB).ToString().ToLower() })
+                </div>
+                <button type="button" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+            }
+        </div>
+    </div>
+</nav>
 @Scripts.Render("~/Script/bootstrap")
 <script>System.import("../Scripts/app/Account.js")</script>

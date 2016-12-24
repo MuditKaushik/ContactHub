@@ -1,10 +1,81 @@
-﻿
+﻿@model ContactHub_MVC.Models.UserModel.AddContactsViewModel
 @{
     ViewBag.Title = "AddContacts";
 }
 
 <div class="page-header">
     <h2 class="forColorWhite">Add Contacts</h2>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.FirstName)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.FirstName).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.MiddleName)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.MiddleName).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.LastName)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.LastName).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.NickName)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.NickName, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.NickName).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.Dob)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.Dob, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.Dob).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.EmailAddress)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.EmailAddress).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(n => n.Phone)</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = Html.DisplayNameFor(n => n.Phone).ToString().ToLower() })
+                            @Html.ValidationMessageFor(v => v.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <input type="file" />
+            </div>
+        </div>
+    </div>
 </div>
 @Scripts.Render("~/Script/bootstrap")
 <script>System.import("../Scripts/app/Account.js")</script>
