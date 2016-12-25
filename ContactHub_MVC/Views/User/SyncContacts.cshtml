@@ -6,6 +6,27 @@
 <div class="page-header">
     <h2 class="forColorWhite">Sync Contacts</h2>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="subHeading">Contacts</i>
+            </div>
+            <ul class="list-group">
+                @for (int i = 0; i < 20; i++)
+                {
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-4">UserImage</div>
+                            <div class="col-md-8 col-xs-8">Contact Details</div>
+                        </div>
+                    </li>
+                }
+            </ul>
 
+        </div>
+    </div>
+    <div class="col-md-5"></div>
+</div>
 @Scripts.Render("~/Script/bootstrap")
 <script>System.import("../Scripts/app/Account.js")</script>

@@ -56,3 +56,7 @@ select.input-validation-error {
 .forColorWhite {
     color: #ffffff;
 }
+
+.subHeading {
+    font-size: 20px;
+}
