@@ -1,4 +1,4 @@
-﻿@if (false)
+﻿@if (true)
 {
     <div class="navbar-collapse collapse nav navbar-nav navbar-right">
         <ul class="nav navbar-nav">
@@ -12,9 +12,7 @@ else
     <div class="navbar-collapse collapse userLinks nav navbar-nav">
         <ul class="nav navbar-nav">
             <li><a href="@Url.Action("Dashboard","User")" class="userLink dashboard">Dashboard</a></li>
-            <li><a href="@Url.Action("SearchContacts","User")" class="userLink searchcontacts">Search Contacts</a></li>
             <li><a href="@Url.Action("AddContacts","User")" class="userLink addcontacts">Add Contacts</a></li>
-            <li><a href="@Url.Action("EditContacts","User")" class="userLink editcontacts">Edit Contacts</a></li>
             <li><a href="@Url.Action("SyncContacts","User")" class="userLink synccontacts">Sync Contacts</a></li>
             <li><a href="@Url.Action("Settings","User")" class="userLink settings">Setting</a></li>
         </ul>

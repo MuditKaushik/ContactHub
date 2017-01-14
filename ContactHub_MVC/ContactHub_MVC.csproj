@@ -128,6 +128,7 @@
     <Content Include="Images\intro-bg.jpg" />
     <Content Include="Images\wooden.jpg" />
     <Content Include="Scripts\app\Account.js" />
+    <Content Include="Scripts\app\DataAccess.js" />
     <Content Include="Scripts\app\signup.js" />
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
@@ -140,15 +141,14 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="CommonData\Files\data.json" />
+    <None Include="Properties\PublishProfiles\ContactHub.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader-dev.js" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader-dev.src.js" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader.js" />
     <Content Include="Scripts\es6ModuleLoader\es6-module-loader.src.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.js" />
@@ -167,6 +167,7 @@
     <Content Include="Scripts\traceur\traceur-runtime.js" />
     <Content Include="Scripts\traceur\traceur.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\app\userdashboard.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -190,6 +191,7 @@
     <Compile Include="Models\AccountModel\SigninViewModel.cs" />
     <Compile Include="Models\AccountModel\SignupViewModel.cs" />
     <Compile Include="Models\UserModel\AddContactsViewModel.cs" />
+    <Compile Include="Models\UserModel\ContactViewModel.cs" />
     <Compile Include="Models\UserModel\SearchContactsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -211,6 +213,7 @@
     <Content Include="Views\User\SyncContacts.cshtml" />
     <Content Include="Views\User\Settings.cshtml" />
     <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\User\Partial\_EditContact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

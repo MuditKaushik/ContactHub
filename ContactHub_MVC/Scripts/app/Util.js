@@ -1,45 +1,42 @@
 ﻿class Utility {
-    constructor(countryListId){
-        this.countryListId = countryListId;
-    }
-    GetContryListXml() {
-        this.ModalPopup().showModalPopup();
-        $.when(this.jQueryAjaxCall("get","/Home/GetCountryListXml",null).promise())
-            .then((data)=>{
-                for(let item of data.Countries){
-                    $("#"+ this.countryListId).append($('<option></option>').attr("value",item.Value).text(item.Text));
-                }
-                this.ModalPopup().HideModalPopup();
-                return false;
-            })
-        .catch((err)=>{
-            console.log(err.statusText);
-        });
-    }
+    constructor(){}
     jQueryAjaxCall(methodType,Url,data){
-        let ajaxOption = {
-            type:(methodType === "" || methodType === null || methodType === undefined )? "post":methodType.toLowerCase(),
-            url:Url,
-            data:(data === null || data === "" || data === undefined)? "" :data
+        let Header = {
+            "Accept":"text/json",
+            "Content-Type":"application/json"
         };
-        return $.ajax(ajaxOption).pipe((response)=> { return response});
+        let ajaxOption = {
+            header:Header,
+            type:(methodType === "" || methodType === null || methodType === undefined )? "post":methodType.toLowerCase(),
+            beginSend:this.ModalPopup().showModalPopup(true),
+            url:Url,
+            data:(data === null || data === "" || data === undefined)? "" :data,
+            complete:this.ModalPopup().showModalPopup(false)
+        };
+        return $.ajax(ajaxOption).promise();
     }
 
     ModalPopup(){
-        function ShowModalPopup(){
-            $("#loader").modal({
-                backdrop:"static",
-                keyboard: false
-            });
-            return;
-        };
-        function HideModalPopup(){
-            $("#loader").modal("hide");
+        function ShowModalPopup(visibility){
+            let loader = $("#loader");
+            switch(visibility){
+                case true:loader.modal({
+                    show:true,
+                    backdrop:"static",
+                    keyboard: false
+                }); break;
+                case false:loader.modal("hide"); break;
+            }
         };
         return {
             showModalPopup: ShowModalPopup,
-            HideModalPopup: HideModalPopup
         };
+    }
+
+    CurrentPageNavigation(){
+        let pathName = window.location.pathname;
+        let pageName = pathName.split("/").pop();
+        return pageName.toLowerCase();
     }
 
 }

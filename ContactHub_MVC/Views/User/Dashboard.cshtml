@@ -1,4 +1,4 @@
-﻿
+﻿@model ContactHub_MVC.Models.UserModel.ContactViewModel
 @{
     ViewBag.Title = "Dashboard";
 }
@@ -7,17 +7,38 @@
     <h2 class="forColorWhite">Dashboard</h2>
 </div>
 <div class="row">
-    @for (int i = 0; i < 40; i++)
-    {
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Username</div>
-                <div class="panel-body">
-                    details
-                </div>
-            </div>
-        </div>
-    }
+    <div class="col-md-5 table-responsive">
+        <table class="table table-hover thumbnail">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email Address</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ContactList)
+                {
+                    <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.EmailAddress</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Gender</td>
+                        <td>
+                            <button type="button" class="fa fa-edit" value="@item.Id" id="editContact"></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-7">
+        <div id="contactError"></div>
+        <div id="contactDetail"></div>
+    </div>
 </div>
+@Scripts.Render("~/Script/jQuery")
 @Scripts.Render("~/Script/bootstrap")
-<script>System.import("../Scripts/app/Account.js")</script>
+<script>System.import("../Scripts/app/userdashboard.js")</script>

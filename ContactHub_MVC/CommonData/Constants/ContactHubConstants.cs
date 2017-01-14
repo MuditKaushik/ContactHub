@@ -10,5 +10,6 @@ namespace ContactHub_MVC.CommonData.Constants
     {
         public const string EmailRegularexpression = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$";
         public const string CountryFilePath = @"~/CommonData/Files/countries.xml";
+        public const string ContactListPath = @"~/CommonData/Files/data.json";
     }
 }

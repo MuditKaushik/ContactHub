@@ -48,7 +48,7 @@ class ValidationUtil{
     }
 
     RemoveHighlightUserLink() {
-        var allUserLinks = $(".userLink");
+        let allUserLinks = $(".userLink");
         allUserLinks.each(function(key,val){
             var element = $(val).closest("li");
             var isActive = element.hasClass("active");
@@ -58,6 +58,74 @@ class ValidationUtil{
         });
         return;
     };
+
+    Messages(){
+        let message = {
+            ServerError:"Internal server error. Please try again.",
+        };
+        return message;
+    }
+
+    MessageType(){
+        let Types = {
+            Error:0,
+            Success:1,
+            Warning:2,
+            Information:3
+        };
+        return Types;
+    }
+
+    CreateDismissButton(){
+        let dismissButton = document.createElement("button");
+        let span = document.createElement("span");
+
+        dismissButton.setAttribute("type","button");
+        dismissButton.setAttribute("data-dismiss","alert");
+        dismissButton.setAttribute("aria-label","Close");
+        dismissButton.classList.add("close");
+
+        span.setAttribute("aria-hidden","true");
+        span.innerHTML += "&times;"
+
+        dismissButton.appendChild(span);
+        return dismissButton;
+    }
+
+    CreateAlertMessage(alertType,message,isDisimssable){
+        let alertDiv = document.createElement("div");
+        let alertSymbol = document.createElement("i");
+
+        alertDiv.setAttribute("role","alert");
+        alertSymbol.classList.add("fa");
+        alertDiv.classList.add("alert");
+
+        switch(alertType){
+            case this.MessageType().Error: 
+                alertSymbol.classList.add("fa-thumbs-o-down");
+                alertDiv.classList.add("alert-danger");
+                break;
+            case this.MessageType().Success: 
+                alertSymbol.classList.add("fa-thumbs-o-up");
+                alertDiv.classList.add("alert-success");
+                break;
+            case this.MessageType().Warning:
+                alertSymbol.classList.add("fa-hand-stop-o");
+                alertDiv.classList.add("alert-warning");
+                break;
+            case this.MessageType().Information: 
+                alertSymbol.classList.add("fa-info-circle");
+                alertDiv.classList.add("alert-info");
+                break;
+        }
+        if(isDisimssable){
+            alertDiv.appendChild(this.CreateDismissButton());
+        }
+        alertDiv.appendChild(alertSymbol);
+        alertDiv.innerHTML += ` ${message}`;
+        return alertDiv.outerHTML;
+    }
+
 
 }
 export {ValidationUtil}

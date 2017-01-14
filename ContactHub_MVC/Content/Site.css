@@ -60,3 +60,7 @@ select.input-validation-error {
 .subHeading {
     font-size: 20px;
 }
+
+.fa .fa-edit .editLink :hover{
+    cursor:pointer;
+}

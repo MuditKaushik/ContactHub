@@ -132,6 +132,12 @@
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid email address</value>
   </data>

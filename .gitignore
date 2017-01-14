@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/ContactHub_MVC/Properties/PublishProfiles

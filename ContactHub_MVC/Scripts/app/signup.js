@@ -1,3 +1,4 @@
-﻿import {Utility} from "./Util.js";
-let utilClass = new Utility("contryList");
-utilClass.GetContryListXml();
+﻿import {DataAccess} from "./DataAccess.js";
+let DA = new DataAccess();
+console.log(DA);
+DA.GetContryListXml("contryList");
