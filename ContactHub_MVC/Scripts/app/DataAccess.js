@@ -4,27 +4,26 @@ class DataAccess extends Utility {
         super();
     }
 
-    GetContryListXml(countryListId) {
-        $.when(this.jQueryAjaxCall("get","/Home/GetCountryListXml",null))
-            .then((data)=>{
-                for(let item of data.Countries){
-                    $("#"+ countryListId).append($('<option></option>').attr("value",item.Value).text(item.Text));
-                }
-                return false;
-            })
-        .catch((err)=>{
-            console.log(err.statusText);
-        });
+    GetContryListXml() {
+        return $.when(this.jQueryAjaxCall("get","/Home/GetCountryListXml",null))
+            .then((data)=>{return data })
+            .catch((err)=>{return err});
     }
 
     GetContactDetails(){
-        return $.when(this.jQueryAjaxCall("Get","../CommonData/Files/datas.json",null))
+        return $.when(this.jQueryAjaxCall("Get","../CommonData/Files/data.json",null))
        .then((response)=>{return response})
        .catch((err)=>{return err});
     }
 
     GetContactById(contactId){
         return $.when(this.jQueryAjaxCall("Get","/User/GetContactById",{Id:contactId}))
+        .then((response)=>{return response})
+        .catch((err)=>{return err});
+    }
+
+    RemoveContactById(contactId){
+        return $.when(this.jQueryAjaxCall("Get","/User/RemoveContact",{Id:contactId}))
         .then((response)=>{return response})
         .catch((err)=>{return err});
     }

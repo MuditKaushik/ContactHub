@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CommonData\Constants\ContactHubConstants.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Helper\Converter.cs" />
     <Compile Include="MessageResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -214,6 +215,7 @@
     <Content Include="Views\User\Settings.cshtml" />
     <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Views\User\Partial\_EditContact.cshtml" />
+    <Content Include="Views\User\Partial\_Contacts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -3,39 +3,20 @@
     ViewBag.Title = "Dashboard";
 }
 
-<div class="page-header">
-    <h2 class="forColorWhite">Dashboard</h2>
-</div>
 <div class="row">
-    <div class="col-md-5 table-responsive">
-        <table class="table table-hover thumbnail">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email Address</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.ContactList)
-                {
-                    <tr>
-                        <td>@item.FullName</td>
-                        <td>@item.EmailAddress</td>
-                        <td>@item.Phone</td>
-                        <td>@item.Gender</td>
-                        <td>
-                            <button type="button" class="fa fa-edit" value="@item.Id" id="editContact"></button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h2 class="forColorWhite">Dashboard</h2>
+        </div>
+        <div id="contactList">
+            @Html.Partial("Partial/_Contacts", Model.ContactList)
+        </div>
     </div>
-    <div class="col-md-7">
-        <div id="contactError"></div>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h2 class="forColorWhite">Contact Details</h2>
+        </div>
+        <div id="contactStatus"></div>
         <div id="contactDetail"></div>
     </div>
 </div>

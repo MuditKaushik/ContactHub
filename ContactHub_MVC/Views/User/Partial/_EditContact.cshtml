@@ -3,10 +3,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="thumbnail">
-            <img />
+            <i class="fa @(Model.Gender.ToLower() == "male" ? "fa-male":"fa-female") fa-5x"/>
             <div class="caption table-responsive">
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>@Html.DisplayFor(d=>d.Id)</td>
+                        </tr>
                         <tr>
                             <td>@Html.DisplayNameFor(n => n.FullName)</td>
                             <td>@Html.DisplayFor(d => d.FullName)</td>
@@ -33,36 +37,3 @@
         </div>
     </div>
 </div>
-@*<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th colspan="5" class="">
-                    <img src="~/Images/wooden.jpg" alt="..."/>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Html.DisplayNameFor(n=>n.FullName)</td>
-                <td>@Html.DisplayFor(d => d.FullName)</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayNameFor(n => n.Dob)</td>
-                <td>@Html.DisplayFor(d => d.Dob)</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayNameFor(n => n.Gender)</td>
-                <td>@Html.DisplayFor(d => d.Gender)</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayNameFor(n => n.EmailAddress)</td>
-                <td>@Html.DisplayFor(d => d.EmailAddress)</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayNameFor(n => n.Phone)</td>
-                <td>@Html.DisplayFor(d => d.Phone)</td>
-            </tr>
-        </tbody>
-    </table>
-</div>*@

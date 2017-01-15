@@ -9,6 +9,7 @@ namespace ContactHub_MVC.Models.UserModel
     public class ContactViewModel
     {
         public IEnumerable<ContactDetails> ContactList { get; set; }
+        public decimal TotalCount { get; set; }
     }
     public class ContactDetails
     {

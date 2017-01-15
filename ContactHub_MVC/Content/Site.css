@@ -64,3 +64,9 @@ select.input-validation-error {
 .fa .fa-edit .editLink :hover{
     cursor:pointer;
 }
+
+.contactTable{
+    height:inherit;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
