@@ -16,7 +16,7 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
-            var contactList = GetContactList();
+            var contactList = GetContactList(true);
             var model = new ContactViewModel()
             {
                 ContactList = contactList.Take(10),
@@ -33,7 +33,10 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult AddContacts()
         {
-            return View();
+            var model = new AddContactsViewModel() {
+                Contacts = GetContactList(false).Take(10)
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -45,7 +48,11 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult SyncContacts()
         {
-            return View();
+            var model = new SyncContacts() {
+                ContactList = GetContactList(false).Take(10).ToList(),
+                ContactModeList = ContactMode()
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -58,29 +65,28 @@ namespace ContactHub_MVC.Controllers
         public ActionResult GetContactListByPage(int pageNumber)
         {
             var skipContactCount = (pageNumber - 1) * 10;
-            var contactList = GetContactList().Skip(skipContactCount).Take(10);
+            var contactList = GetContactList(true).Skip(skipContactCount).Take(10);
             return PartialView("Partial/_Contacts",contactList);
         }
 
         [HttpGet]
         public ActionResult RemoveContact(string Id)
         {
-            var ContactList = GetContactList().Take(10);
+            var ContactList = GetContactList(true).Take(10);
             var NewContactList = ContactList.Where(x => x.Id != Id);
-            var renderView = Converter.PartialViewToHtml(this, "Partial/_Contacts", NewContactList);
+            var renderView = Converter.PartialViewToHtml(this, "Partial/_Contacts", NewContactList).Result;
             return Json(new { result = true, newList = renderView }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetContactById(string Id)
         {
-            var ContactList = GetContactList();
-
+            var ContactList = GetContactList(true);
             var Contact = ContactList.FirstOrDefault(x => x.Id.Equals(Id));
             return PartialView("Partial/_EditContact", Contact);
         }
 
-        private IEnumerable<ContactDetails> GetContactList()
+        private IEnumerable<ContactDetails> GetContactList(bool isEditable)
         {
             var contactList = new List<ContactDetails>();
             var contactsPath = Server.MapPath(ContactHubConstants.ContactListPath);
@@ -97,15 +103,31 @@ namespace ContactHub_MVC.Controllers
                     EmailAddress = item.emailAddress,
                     Dob = item.dob,
                     Gender = item.sex,
-                    Phone = item.phone
+                    Phone = item.phone,
+                    IsEditable = isEditable
                 });
             }
             return contactList;
         }
 
-        private ContactDetails GetContact(string contactId)
+        private IEnumerable<SelectListItem> ContactMode()
         {
-            var ContactList = GetContactList();
+            var contactModes = new List<SelectListItem>() {
+                new SelectListItem() {
+                Text="Mobile",
+                Value = "1"
+            },
+            new SelectListItem() {
+                Text = "Email",
+                Value = "2"
+            }
+            };
+            return contactModes;
+        }
+
+        private ContactDetails GetContact(string contactId,bool isEditable)
+        {
+            var ContactList = GetContactList(isEditable);
             var Contact = ContactList.FirstOrDefault(x => x.Id.Equals(contactId));
             return Contact;
         }

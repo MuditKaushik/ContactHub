@@ -70,6 +70,15 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact mode.
+        /// </summary>
+        public static string ContactMode {
+            get {
+                return ResourceManager.GetString("ContactMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {

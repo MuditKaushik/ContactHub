@@ -1,6 +1,6 @@
-﻿@if (true)
+﻿@if (false)
 {
-    <div class="navbar-collapse collapse nav navbar-nav navbar-right">
+    <div class="navbar-collapse collapse nav navbar-nav navbar-right userLinks">
         <ul class="nav navbar-nav">
             <li><a href="@Url.Action("Registration", "Home")">Registration</a></li>
             <li><a href="@Url.Action("Login", "Home")">Login</a></li>
@@ -9,7 +9,7 @@
 }
 else
 {
-    <div class="navbar-collapse collapse userLinks nav navbar-nav">
+    <div class="navbar-collapse collapse userLinks nav navbar-nav userLinks">
         <ul class="nav navbar-nav">
             <li><a href="@Url.Action("Dashboard","User")" class="userLink dashboard">Dashboard</a></li>
             <li><a href="@Url.Action("AddContacts","User")" class="userLink addcontacts">Add Contacts</a></li>
@@ -17,7 +17,7 @@ else
             <li><a href="@Url.Action("Settings","User")" class="userLink settings">Setting</a></li>
         </ul>
     </div>
-    <div class="navbar-collapse collapse nav navbar-nav navbar-right">
+    <div class="navbar-collapse collapse nav navbar-nav navbar-right userLinks">
         <ul class="nav navbar-nav">
             <li><a href="#">Username</a></li>
             <li><a href="@Url.Action("Logout","Home")">Logout</a></li>

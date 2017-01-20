@@ -21,12 +21,15 @@
                         <td>@item.EmailAddress</td>
                         <td>@item.Phone</td>
                         <td>@item.Gender</td>
-                        <td>
-                            <div class="btn-group" aria-label="...">
-                                <button type="button" class="fa fa-edit btn btn-default" value="@item.Id" id="editContact"></button>
-                                <button type="button" class="fa fa-trash btn btn-default" value="@item.Id" id="deleteContact"></button>
-                            </div>
-                        </td>
+                        @if (item.IsEditable)
+                        {
+                            <td>
+                                <div class="btn-group" aria-label="...">
+                                    <button type="button" class="fa fa-edit btn btn-default" value="@item.Id" id="editContact"></button>
+                                    <button type="button" class="fa fa-trash btn btn-default" value="@item.Id" id="deleteContact"></button>
+                                </div>
+                            </td>
+                        }
                     </tr>
                 }
             }

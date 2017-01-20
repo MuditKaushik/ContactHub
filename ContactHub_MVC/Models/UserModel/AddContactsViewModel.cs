@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContactHub_MVC.Models.UserModel
 {
-    public class AddContactsViewModel
+    public partial class AddContactsViewModel
     {
         [Display(Name = "FirstName",ResourceType =typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]
@@ -29,5 +30,9 @@ namespace ContactHub_MVC.Models.UserModel
         [Display(Name ="PhoneNumber",ResourceType =typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]
         public string Phone { get; set; }
+    }
+    public partial class AddContactsViewModel
+    {
+        public IEnumerable<ContactDetails> Contacts { get; set; }
     }
 }

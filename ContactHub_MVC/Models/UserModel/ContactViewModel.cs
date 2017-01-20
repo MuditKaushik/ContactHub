@@ -17,7 +17,7 @@ namespace ContactHub_MVC.Models.UserModel
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        [Display(Name ="EmailAddress",ResourceType =typeof(MessageResource))]
+        [Display(Name = "EmailAddress", ResourceType = typeof(MessageResource))]
         public string EmailAddress { get; set; }
         [Display(Name = "Dob", ResourceType = typeof(MessageResource))]
         public string Dob { get; set; }
@@ -25,7 +25,9 @@ namespace ContactHub_MVC.Models.UserModel
         public string Phone { get; set; }
         [Display(Name = "Gender", ResourceType = typeof(MessageResource))]
         public string Gender { get; set; }
-        [Display(Name = "FullName",ResourceType = typeof(MessageResource))]
+        [Display(Name = "FullName", ResourceType = typeof(MessageResource))]
         public string FullName => $"{FirstName} {MiddleName} {LastName}";
+        public bool IsEditable { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

@@ -112,6 +112,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\jasny-bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -130,6 +132,7 @@
     <Content Include="Scripts\app\Account.js" />
     <Content Include="Scripts\app\DataAccess.js" />
     <Content Include="Scripts\app\signup.js" />
+    <Content Include="Scripts\app\syncContacts.js" />
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
@@ -142,6 +145,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="CommonData\Files\data.json" />
+    <Content Include="Content\jasny-bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\ContactHub.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -158,6 +162,8 @@
     <Content Include="Scripts\jQuery\jquery.validate.min.js" />
     <Content Include="Scripts\jQuery\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jQuery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JsanyBootstrap\jasny-bootstrap.js" />
+    <Content Include="Scripts\JsanyBootstrap\offcanvas.js" />
     <Content Include="Scripts\modernizr\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond\respond.js" />
     <Content Include="Scripts\respond\respond.matchmedia.addListener.js" />
@@ -194,6 +200,7 @@
     <Compile Include="Models\UserModel\AddContactsViewModel.cs" />
     <Compile Include="Models\UserModel\ContactViewModel.cs" />
     <Compile Include="Models\UserModel\SearchContactsViewModel.cs" />
+    <Compile Include="Models\UserModel\SyncContacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +223,7 @@
     <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Views\User\Partial\_EditContact.cshtml" />
     <Content Include="Views\User\Partial\_Contacts.cshtml" />
+    <Content Include="Views\User\Partial\_SyncContacts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

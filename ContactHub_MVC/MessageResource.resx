@@ -120,6 +120,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
   </data>
+  <data name="ContactMode" xml:space="preserve">
+    <value>Contact mode</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>

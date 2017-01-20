@@ -63,7 +63,8 @@ class ValidationUtil{
         let message = {
             ServerError:"Internal server error. Please try again.",
             ContactRemoveSuccess:"Contact removed successfully.",
-            ContactRemoveFailure:"Not able to remove contact, Please try again."
+            ContactRemoveFailure:"Not able to remove contact, Please try again.",
+            ContactFetchFailure:"Not able to fetch contact, Please try again."
         };
         return message;
     }

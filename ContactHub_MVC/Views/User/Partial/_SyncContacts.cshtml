@@ -1,0 +1,38 @@
+﻿@model IList<ContactHub_MVC.Models.UserModel.ContactDetails>
+
+<div class="table-responsive thumbnail">
+    <table class="table text-center text-justify table-condensed">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Html.CheckBoxFor(m => Model[i].IsSelected, new { @class="sync_contacts"})</td>
+                    <td>@Model[i].FullName</td>
+                    <td>@Model[i].EmailAddress</td>
+                    <td>@Model[i].Gender</td>
+                    <td>@Model[i].Phone</td>
+                    <td>
+                        <button class="fa fa-eye btn-link" style="text-decoration:none; cursor:pointer" value="@Model[i].Id" id="show"></button>
+                        <button class="fa fa-download btn-link" style="text-decoration:none; cursor:pointer" value="@Model[i].Id"></button>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="6">
+                    <button type="button" class="btn btn-default" id="selectall">Select All</button>
+                    <button type="button" class="btn btn-default" id="selectnone">Select None</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
