@@ -132,7 +132,6 @@
     <Content Include="Scripts\app\Account.js" />
     <Content Include="Scripts\app\DataAccess.js" />
     <Content Include="Scripts\app\signup.js" />
-    <Content Include="Scripts\app\syncContacts.js" />
     <Content Include="Scripts\app\Util.js" />
     <Content Include="Scripts\app\validationUtil.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
