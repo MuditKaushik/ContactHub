@@ -14,11 +14,14 @@ namespace ContactHub_MVC.Models.UserModel
         public string PhoneNumber { get; set; }
         [Display(Name = "ContactMode", ResourceType = typeof(MessageResource))]
         public string ContactMode { get; set; }
+        public string DialCode { get; set; }
+        public List<int> ContactIds { get; set; }
 
     }
     public partial class SyncContacts
     {
         public IEnumerable<ContactDetails> ContactList { get; set; }
         public IEnumerable<SelectListItem> ContactModeList { get; set; }
+        public IEnumerable<SelectListItem> DialCodeList { get; set; }
     }
 }

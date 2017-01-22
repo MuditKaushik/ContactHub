@@ -57,7 +57,7 @@ namespace ContactHub_MVC.Controllers
         protected CountryList GetXmlCountryList()
         {
             var countryData = new List<SelectListItem>();
-            var xmlPath = Server.MapPath(ContactHubConstants.CountryFilePath);
+            var xmlPath = Server.MapPath(ContactHubConstants.CountryFileXmlPath);
             var xmlDocument = XDocument.Load(xmlPath);
             var elements = xmlDocument.Element("countries").Elements("country");
             foreach (var item in elements)
@@ -73,7 +73,7 @@ namespace ContactHub_MVC.Controllers
         protected CountryList GetJsonCountryList()
         {
             var countryData = new List<SelectListItem>();
-            var jsonPath = Server.MapPath(ContactHubConstants.CountryFilePath);
+            var jsonPath = Server.MapPath(ContactHubConstants.CountryFileJsonPath);
             var jsonFile = System.IO.File.ReadAllText(jsonPath); 
             var jsonDocument = JsonConvert.DeserializeObject<dynamic>(jsonFile);
             foreach (var item in jsonDocument)

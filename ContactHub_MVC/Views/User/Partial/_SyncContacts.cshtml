@@ -16,14 +16,14 @@
             @for (var i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Html.CheckBoxFor(m => Model[i].IsSelected, new { @class="sync_contacts"})</td>
+                    <td>@Html.CheckBoxFor(m => Model[i].IsSelected, new { @class="sync_contacts",@value=Model[i].Id})</td>
                     <td>@Model[i].FullName</td>
                     <td>@Model[i].EmailAddress</td>
                     <td>@Model[i].Gender</td>
                     <td>@Model[i].Phone</td>
                     <td>
-                        <button class="fa fa-eye btn-link" style="text-decoration:none; cursor:pointer" value="@Model[i].Id" id="show"></button>
-                        <button class="fa fa-download btn-link" style="text-decoration:none; cursor:pointer" value="@Model[i].Id"></button>
+                        <button class="fa fa-eye btn-link customLink" value="@Model[i].Id" id="show"></button>
+                        <button class="fa fa-download btn-link customLink" value="@Model[i].Id" id="download"></button>
                     </td>
                 </tr>
             }

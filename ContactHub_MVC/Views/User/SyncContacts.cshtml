@@ -1,47 +1,53 @@
 ﻿@model ContactHub_MVC.Models.UserModel.SyncContacts
 @{
-    ViewBag.Title = "SyncContacts";
+    ViewBag.Title = "Restore Contacts";
 }
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="page-header">
             <h2 class="forColorWhite">Sync Contacts</h2>
         </div>
+        <div class="row hide" id="syncStatus">
+            <div class="col-md-12" id="status"></div>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="">Restore Contacts</h3>
+                <h3 class="panel-title">Restore Contacts</h3>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" role="form">
+                <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">@Html.DisplayNameFor(d => d.ContactMode)</label>
-                        <div class="col-md-7">
-                            @Html.DropDownListFor(m => m.ContactMode, (IEnumerable<SelectListItem>)Model.ContactModeList, "Select", new { @class = "form-control" })
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(d => d.ContactMode)</label>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.ContactMode, (IEnumerable<SelectListItem>)Model.ContactModeList, "Select", new { @class = "form-control", @id = "contactMode" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 control-label">@Html.DisplayNameFor(d => d.PhoneNumber)</label>
-                        <div class="col-md-7">
-                            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                        <label class="col-md-3 control-label">@Html.DisplayNameFor(d => d.PhoneNumber)</label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.DialCode, Enumerable.Empty<SelectListItem>(), "Dial code", new { @class = "form-control", @id = "dialcode" })
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @id = "phoneNumber" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-7 col-md-offset-4">
-                            <button class="btn btn-primary">Sync</button>
+                        <div class="col-md-9 col-md-offset-3">
+                            <button class="btn btn-primary" id="restore">Sync</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="page-header">
             <h2 class="forColorWhite">Contacts</h2>
         </div>
         @Html.Partial("Partial/_SyncContacts", Model.ContactList)
     </div>
-    <div class="col-md-4 hide" id="detailColumn">
+    <div class="col-md-3 hide" id="detailColumn">
         <div class="page-header">
             <h2 class="forColorWhite">Contact Detail</h2>
         </div>

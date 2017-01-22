@@ -33,7 +33,8 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult AddContacts()
         {
-            var model = new AddContactsViewModel() {
+            var model = new AddContactsViewModel()
+            {
                 Contacts = GetContactList(false).Take(10)
             };
             return View(model);
@@ -48,9 +49,11 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public ActionResult SyncContacts()
         {
-            var model = new SyncContacts() {
+            var model = new SyncContacts()
+            {
                 ContactList = GetContactList(false).Take(10).ToList(),
-                ContactModeList = ContactMode()
+                ContactModeList = ContactMode(),
+                //DialCodeList = GetContryDialCodes()
             };
             return View(model);
         }
@@ -66,7 +69,7 @@ namespace ContactHub_MVC.Controllers
         {
             var skipContactCount = (pageNumber - 1) * 10;
             var contactList = GetContactList(true).Skip(skipContactCount).Take(10);
-            return PartialView("Partial/_Contacts",contactList);
+            return PartialView("Partial/_Contacts", contactList);
         }
 
         [HttpGet]
@@ -74,7 +77,7 @@ namespace ContactHub_MVC.Controllers
         {
             var ContactList = GetContactList(true).Take(10);
             var NewContactList = ContactList.Where(x => x.Id != Id);
-            var renderView = Converter.PartialViewToHtml(this, "Partial/_Contacts", NewContactList).Result;
+            var renderView = Utility.PartialViewToHtml(this, "Partial/_Contacts", NewContactList).Result;
             return Json(new { result = true, newList = renderView }, JsonRequestBehavior.AllowGet);
         }
 
@@ -84,6 +87,24 @@ namespace ContactHub_MVC.Controllers
             var ContactList = GetContactList(true);
             var Contact = ContactList.FirstOrDefault(x => x.Id.Equals(Id));
             return PartialView("Partial/_EditContact", Contact);
+        }
+
+        [HttpGet]
+        public ActionResult DownloadContact(string Id)
+        {
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult SyncContacts(SyncContacts model)
+        {
+            return Json(new { result = model }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetDialCodes()
+        {
+            return Json(GetContryDialCodes(), JsonRequestBehavior.AllowGet);
         }
 
         private IEnumerable<ContactDetails> GetContactList(bool isEditable)
@@ -125,11 +146,17 @@ namespace ContactHub_MVC.Controllers
             return contactModes;
         }
 
-        private ContactDetails GetContact(string contactId,bool isEditable)
+        private ContactDetails GetContact(string contactId, bool isEditable)
         {
             var ContactList = GetContactList(isEditable);
             var Contact = ContactList.FirstOrDefault(x => x.Id.Equals(contactId));
             return Contact;
+        }
+
+        private IEnumerable<SelectListItem> GetContryDialCodes()
+        {
+            var path = Server.MapPath(ContactHubConstants.CountryFileJsonPath);
+            return Utility.GetContryDialCode(path).Result;
         }
 
     }

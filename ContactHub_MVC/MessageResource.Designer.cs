@@ -70,7 +70,7 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact mode.
+        ///   Looks up a localized string similar to Reply at.
         /// </summary>
         public static string ContactMode {
             get {

@@ -13,7 +13,7 @@ class ValidationUtil{
     }
     ValidateTextBoxById(Id){
         let valid = true;
-        let element = $("#"+Id);
+        let element = $(`#${Id}`);
         let elementValue = element.val();
         if(elementValue ===""){
             valid = false;
@@ -64,7 +64,11 @@ class ValidationUtil{
             ServerError:"Internal server error. Please try again.",
             ContactRemoveSuccess:"Contact removed successfully.",
             ContactRemoveFailure:"Not able to remove contact, Please try again.",
-            ContactFetchFailure:"Not able to fetch contact, Please try again."
+            ContactFetchFailure:"Not able to fetch contact, Please try again.",
+            ContactsNotSelected:"Please select contact.",
+            CountryDialCodeNotSeleted:"Please select dial code.",
+            ContactModeNotSelected:"Please select contact mode.",
+            ContactNumberNotEntered:"Please enter the phone number."
         };
         return message;
     }
@@ -129,6 +133,22 @@ class ValidationUtil{
         return alertDiv.outerHTML;
     }
 
+    ToggleHideShowElementById(elementId,visibility){
+        let selector = $(`#${elementId}`);
+        switch(visibility){
+            case true: selector.removeClass("hide");break;
+            case false: selector.addClass("hide");break;
+        }
+        return;
+    }
+
+    ToggleCheckBoxesByClassName(className,IsSelectAll){
+        let selector = $(`.${className}`);
+        $.each(selector,function(key,val){
+            $(val).prop("checked",IsSelectAll);
+        });
+        return;
+    }
 
 }
 export {ValidationUtil}
