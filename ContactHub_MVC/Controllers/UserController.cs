@@ -7,6 +7,7 @@ using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
 using Newtonsoft.Json;
 using ContactHub_MVC.Helper;
+using System.IO;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -53,7 +54,6 @@ namespace ContactHub_MVC.Controllers
             {
                 ContactList = GetContactList(false).Take(10).ToList(),
                 ContactModeList = ContactMode(),
-                //DialCodeList = GetContryDialCodes()
             };
             return View(model);
         }
@@ -89,16 +89,37 @@ namespace ContactHub_MVC.Controllers
             return PartialView("Partial/_EditContact", Contact);
         }
 
-        [HttpGet]
-        public ActionResult DownloadContact(string Id)
+        [HttpPost]
+        public ActionResult DownloadContact(params int[] Ids)
         {
+            var contactList = new List<ContactDetails>();
+            var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
+            var file = Guid.NewGuid().ToString() + ".txt";
+            var filePath = Path.Combine(serverPath + file);
+            var Fileinfo = new FileInfo(filePath);
+            switch (System.IO.File.Exists(filePath))
+            {
+                case true:
+                    break;
+                case false:
+                    break;
+            }
+            foreach (var id in Ids)
+            {
+                contactList.Add(GetContact(id.ToString(), false));
+            }
             return null;
         }
 
         [HttpPost]
         public ActionResult SyncContacts(SyncContacts model)
         {
-            return Json(new { result = model }, JsonRequestBehavior.AllowGet);
+            var contacts = new List<ContactDetails>();
+            foreach (var id in model.ContactIds)
+            {
+                contacts.Add(GetContact(id.ToString(), false));
+            }
+            return Json(new { result = contacts }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

@@ -12,5 +12,6 @@ namespace ContactHub_MVC.CommonData.Constants
         public const string CountryFileXmlPath = @"~/CommonData/Files/countries.xml";
         public const string CountryFileJsonPath = @"~/CommonData/Files/contries.json";
         public const string ContactListPath = @"~/CommonData/Files/data.json";
+        public const string TempFilePath = @"~/TempFile";
     }
 }

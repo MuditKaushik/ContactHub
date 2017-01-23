@@ -63,11 +63,26 @@ $(document).on("click","#download",function(){
 
 $(document).on("click","#selectall",function(){
     Util.ToggleCheckBoxesByClassName("sync_contacts",true);
+    $("#contactError").html("");
     return;
 });
 
 $(document).on("click","#selectnone",function(){
     Util.ToggleCheckBoxesByClassName("sync_contacts",false);
+    return;
+});
+
+$(document).on("click","#downloadAll",function(){
+    let contactIds = GetCheckBoxValue();
+    $("#contactError").html("");
+    if(contactIds.length > 0){
+        DA.DownloadContactDetails(contactIds)
+            .done((data)=>{})
+            .fail((err)=>{});
+    }else{
+        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelected,true);
+        $("#contactError").html(errorMessage);
+    }
     return;
 });
 
@@ -112,7 +127,7 @@ $(document).on("click","#restore",function(){
             ContactIds:contactIds
         };
 
-        DA.PostSyncContacts(model)
+        DA.SyncContacts(model)
             .done((data)=>{
                 console.log(data);
                 return data;

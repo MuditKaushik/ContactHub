@@ -28,19 +28,21 @@ class DataAccess extends Utility {
         .catch((err)=>{return err});
     }
 
-    DownloadContactDetails(contactId){
-        return $.when(this.jQueryAjaxCall("Get","/User/DownloadContact",{Id:contactId}))
-        .then((response)=>{return response})
-        .catch((err)=>{return err});
-    }
-
     GetCountryDialCodes(){
         return $.when(this.jQueryAjaxCall("Get","/User/GetDialCodes",null))
             .then((response)=>{return response})
             .catch((err)=>{return err});
     }
 
-    PostSyncContacts(PostData){
+                                                                    /*------Post Requests-------*/
+
+    DownloadContactDetails(contactIds){
+        return $.when(this.jQueryAjaxCall("Post","/User/DownloadContact",{Ids:contactIds}))
+        .then((response)=>{return response})
+        .catch((err)=>{return err});
+    }
+
+    SyncContacts(PostData){
         return $.when(this.jQueryAjaxCall("Post","/User/SyncContacts",{model:PostData}))
         .then((response)=>{return response})
         .catch((err)=>{return err});
