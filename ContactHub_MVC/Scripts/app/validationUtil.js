@@ -65,7 +65,8 @@ class ValidationUtil{
             ContactRemoveSuccess:"Contact removed successfully.",
             ContactRemoveFailure:"Not able to remove contact, Please try again.",
             ContactFetchFailure:"Not able to fetch contact, Please try again.",
-            ContactsNotSelected:"Please select contact.",
+            ContactsNotSelectedForRestore:"Please select contact.",
+            ContactsNotSelectedForDownload:"Please select contact for download.",
             CountryDialCodeNotSeleted:"Please select dial code.",
             ContactModeNotSelected:"Please select contact mode.",
             ContactNumberNotEntered:"Please enter the phone number."
@@ -103,6 +104,7 @@ class ValidationUtil{
         let alertDiv = document.createElement("div");
         let alertSymbol = document.createElement("i");
 
+        alertDiv.setAttribute("tabIndex","1");
         alertDiv.setAttribute("role","alert");
         alertSymbol.classList.add("fa");
         alertDiv.classList.add("alert");

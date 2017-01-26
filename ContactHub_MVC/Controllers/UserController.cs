@@ -8,6 +8,7 @@ using ContactHub_MVC.CommonData.Constants;
 using Newtonsoft.Json;
 using ContactHub_MVC.Helper;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -90,25 +91,19 @@ namespace ContactHub_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult DownloadContact(params int[] Ids)
+        public async Task<ActionResult> DownloadContact(params int[] Ids)
         {
             var contactList = new List<ContactDetails>();
-            var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
-            var file = Guid.NewGuid().ToString() + ".txt";
-            var filePath = Path.Combine(serverPath + file);
-            var Fileinfo = new FileInfo(filePath);
-            switch (System.IO.File.Exists(filePath))
-            {
-                case true:
-                    break;
-                case false:
-                    break;
-            }
             foreach (var id in Ids)
             {
                 contactList.Add(GetContact(id.ToString(), false));
             }
-            return null;
+            var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
+            var file = Guid.NewGuid().ToString() + ".txt";
+            var filePath = Path.Combine(serverPath, file);
+            var fileBytes = (await Utility.CreateFile(filePath, contactList)) ? await Utility.FileBytes(filePath) : default(byte[]);
+            var deleteFile = await Utility.DeleteFile(filePath);
+            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
         }
 
         [HttpPost]

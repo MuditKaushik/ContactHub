@@ -48,7 +48,7 @@ $(document).on("click","#show",function(){
         })
         .fail((err)=>{
             let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactFetchFailure,false);
-            targetId.html(errorMessage);
+            targetId.html(errorMessage).focus();
         });
 });
 
@@ -56,8 +56,10 @@ $(document).on("click","#download",function(){
     let contactId = $(this).val();
     DA.DownloadContactDetails(contactId)
     .done((data)=>{
+        console.log(data);
     })
     .fail((err)=>{
+        console.log(err);
     });
 });
 
@@ -77,11 +79,15 @@ $(document).on("click","#downloadAll",function(){
     $("#contactError").html("");
     if(contactIds.length > 0){
         DA.DownloadContactDetails(contactIds)
-            .done((data)=>{})
-            .fail((err)=>{});
+            .done((data)=>{
+                console.log(data);
+            })
+            .fail((err)=>{
+                console.log(err);
+            });
     }else{
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelected,true);
-        $("#contactError").html(errorMessage);
+        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelectedForDownload,true);
+        $("#contactError").html(errorMessage).focus();
     }
     return;
 });
@@ -97,23 +103,23 @@ $(document).on("click","#restore",function(){
     if(contactIds.length <= 0){
         isFormValid = false;
         Util.ToggleHideShowElementById("syncStatus",true);
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelected,true);
-        targetId.html(errorMessage);
+        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelectedForRestore,true);
+        targetId.html(errorMessage).focus();
     }else if(!dialCode){
         isFormValid = false;
         Util.ToggleHideShowElementById("syncStatus",true);
         let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().CountryDialCodeNotSeleted,true);
-        targetId.html(errorMessage);
+        targetId.html(errorMessage).focus();
     }else if(!contactMode){
         isFormValid = false;
         Util.ToggleHideShowElementById("syncStatus",true);
         let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactModeNotSelected,true);
-        targetId.html(errorMessage);
+        targetId.html(errorMessage).focus();
     }else if(!contactNumber){
         isFormValid = false;
         Util.ToggleHideShowElementById("syncStatus",true);
         let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactNumberNotEntered,true);
-        targetId.html(errorMessage);
+        targetId.html(errorMessage).focus();
     }else{
         targetId.html("");
         Util.ToggleHideShowElementById("syncStatus",true);
