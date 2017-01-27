@@ -56,7 +56,6 @@ $(document).on("click","#download",function(){
     let contactId = $(this).val();
     DA.DownloadContactDetails(contactId)
     .done((data)=>{
-        console.log(data);
     })
     .fail((err)=>{
         console.log(err);
@@ -80,7 +79,10 @@ $(document).on("click","#downloadAll",function(){
     if(contactIds.length > 0){
         DA.DownloadContactDetails(contactIds)
             .done((data)=>{
-                console.log(data);
+                let downloadPath = `/User/Download/${data.filename}`;
+                console.log(downloadPath);
+                debugger;
+                window.open("https://www.google.co.in","_blank");
             })
             .fail((err)=>{
                 console.log(err);

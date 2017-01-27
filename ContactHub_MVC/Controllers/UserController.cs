@@ -101,9 +101,8 @@ namespace ContactHub_MVC.Controllers
             var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
             var file = Guid.NewGuid().ToString() + ".txt";
             var filePath = Path.Combine(serverPath, file);
-            var fileBytes = (await Utility.CreateFile(filePath, contactList)) ? await Utility.FileBytes(filePath) : default(byte[]);
-            var deleteFile = await Utility.DeleteFile(filePath);
-            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
+            var isFileCreated = await Utility.CreateFile(filePath, contactList);
+            return Json(new { filename = (isFileCreated) ? Path.GetFileName(filePath) : null }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -121,6 +120,24 @@ namespace ContactHub_MVC.Controllers
         public ActionResult GetDialCodes()
         {
             return Json(GetContryDialCodes(), JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [Route("Download/{fileName}")]
+        public async Task<ActionResult> Download(string fileName)
+        {
+            var folder = Server.MapPath(ContactHubConstants.TempFilePath);
+            var path = Path.Combine(folder, fileName);
+            var fileInfo = new FileInfo(path);
+            switch(fileInfo.Exists)
+            {
+                case true:
+                    var fileBytes = await Utility.FileBytes(path);
+                    await Utility.DeleteFile(path);
+                    return File(fileBytes, ContactHubConstants.FileContentType, Path.GetFileName(path));
+                case false: await Utility.DeleteFile(path); break;
+            }
+            return null;
         }
 
         private IEnumerable<ContactDetails> GetContactList(bool isEditable)
