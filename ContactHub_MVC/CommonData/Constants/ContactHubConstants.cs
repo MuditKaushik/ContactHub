@@ -12,7 +12,13 @@ namespace ContactHub_MVC.CommonData.Constants
         public const string CountryFileXmlPath = @"~/CommonData/Files/countries.xml";
         public const string CountryFileJsonPath = @"~/CommonData/Files/contries.json";
         public const string ContactListPath = @"~/CommonData/Files/data.json";
+
+        /*------------Constants related to files------------------*/
         public const string TempFilePath = @"~/TempFile";
         public const string FileContentType = @"application/octet-stream";
+        public const string DownloadFileMethod = @"/User/Download";
+        public const string TextFileExtension = ".txt";
+        public const string PdfFileExtension = ".pdf";
+        public const string CsvFileExtension = ".csv";
     }
 }

@@ -79,10 +79,10 @@ $(document).on("click","#downloadAll",function(){
     if(contactIds.length > 0){
         DA.DownloadContactDetails(contactIds)
             .done((data)=>{
-                let downloadPath = `/User/Download/${data.filename}`;
-                console.log(downloadPath);
-                debugger;
-                window.open("https://www.google.co.in","_blank");
+                if(data.filename!==null){
+                    let activeObject = new ActiveXObject("Scripting.FileSystemObject");
+                    //window.open(`${data.path}?fileName = ${data.filename}`,"_blank","height=auto,width:200");
+                }
             })
             .fail((err)=>{
                 console.log(err);

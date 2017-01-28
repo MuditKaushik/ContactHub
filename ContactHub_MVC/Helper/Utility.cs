@@ -9,6 +9,8 @@ using ContactHub_MVC.CommonData.Constants;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using ContactHub_MVC.Models.UserModel;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace ContactHub_MVC.Helper
 {
@@ -28,7 +30,7 @@ namespace ContactHub_MVC.Helper
             }
         }
 
-        public async static Task<bool> CreateFile(string filePath, List<ContactDetails> Contacts)
+        public async static Task<bool> CreateFile(string filePath, List<ContactDetails> Contacts, FileType fileType)
         {
             var IsFileCreated = default(bool);
         createNew: var fileInfo = new FileInfo(filePath);
@@ -38,22 +40,81 @@ namespace ContactHub_MVC.Helper
                     goto default;
                 case false:
                     File.Create(filePath).Close();
-                    using (var fStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    switch (fileType)
                     {
-                        using (var sWriter = new StreamWriter(fStream))
-                        {
-                            sWriter.WriteLine("\tName\tGender\tDate of birth\tPhone\tEmail");
-                            for (var i = 0; i < Contacts.Count(); i++)
-                            {
-                                sWriter.WriteLine($"{i + 1}\t{Contacts[i].FullName}\t{Contacts[i].Gender}\t{Contacts[i].Dob}\t{Contacts[i].Phone}\t{Contacts[i].EmailAddress}");
-                            }
-                        }
+                        case FileType.Text: IsFileCreated = await CreateTextFile(filePath, Contacts); break;
+                        case FileType.Pdf: IsFileCreated = await CreatePdfFile(filePath, Contacts); break;
+                        case FileType.Contact: IsFileCreated = await CreateCsvFile(filePath, Contacts); break;
+                        default: break;
                     }
-                    IsFileCreated = true;
                     break;
                 default: await DeleteFile(filePath); goto createNew;
             }
             return await Task.FromResult(IsFileCreated);
+        }
+
+        private async static Task<bool> CreateTextFile(string filePath, List<ContactDetails> Contacts)
+        {
+            var isFileCreated = default(bool);
+            using (var fStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                using (var sWriter = new StreamWriter(fStream))
+                {
+                    sWriter.WriteLine("\tName\tGender\tDate of birth\tPhone\tEmail");
+                    for (var i = 0; i < Contacts.Count(); i++)
+                    {
+                        sWriter.WriteLine($"{i + 1}\t{Contacts[i].FullName}\t{Contacts[i].Gender}\t{Contacts[i].Dob}\t{Contacts[i].Phone}\t{Contacts[i].EmailAddress}");
+                    }
+                    isFileCreated = true;
+                }
+            }
+            return await Task.FromResult(isFileCreated);
+        }
+
+        private async static Task<bool> CreatePdfFile(string filePath, List<ContactDetails> Contacts)
+        {
+            var isFileCreated = default(bool);
+            using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                var pdfDoc = new Document(PageSize.A4);
+                var tableWidth = new int[] {3,10,5,7,6,10 };
+                var pdfTable = new PdfPTable(6)
+                {
+                    HorizontalAlignment = Element.ALIGN_LEFT,
+                    WidthPercentage = 100,
+                };
+
+                pdfTable.SetWidths(tableWidth);
+                pdfTable.AddCell("SNo.");
+                pdfTable.AddCell("Name");
+                pdfTable.AddCell("Gender");
+                pdfTable.AddCell("Date of birth");
+                pdfTable.AddCell("Phone");
+                pdfTable.AddCell("Email");
+
+                for(var i=0;i<Contacts.Count;i++)
+                {
+                    pdfTable.AddCell((i+1).ToString());
+                    pdfTable.AddCell(Contacts[i].FullName);
+                    pdfTable.AddCell(Contacts[i].Gender);
+                    pdfTable.AddCell(Contacts[i].Dob);
+                    pdfTable.AddCell(Contacts[i].Phone);
+                    pdfTable.AddCell(Contacts[i].EmailAddress);
+                }
+
+                var pdfWriter = PdfWriter.GetInstance(pdfDoc, fileStream);
+                pdfDoc.Open();
+                pdfDoc.Add(pdfTable);
+                pdfDoc.Close();
+                isFileCreated = true;
+            }
+            return await Task.FromResult(isFileCreated);
+        }
+
+        private async static Task<bool> CreateCsvFile(string filePath, List<ContactDetails> Contacts)
+        {
+            var isFileCreated = default(bool);
+            return await Task.FromResult(isFileCreated);
         }
 
         public async static Task<bool> DeleteFile(string filePath)
@@ -63,8 +124,8 @@ namespace ContactHub_MVC.Helper
             switch (fileInfo.Exists)
             {
                 case true: File.Delete(filePath); fileDeleted = true; break;
-                case false:break;
-                default:break;
+                case false: break;
+                default: break;
             }
             return await Task.FromResult(fileDeleted);
         }

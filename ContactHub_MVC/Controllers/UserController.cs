@@ -99,10 +99,10 @@ namespace ContactHub_MVC.Controllers
                 contactList.Add(GetContact(id.ToString(), false));
             }
             var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
-            var file = Guid.NewGuid().ToString() + ".txt";
+            var file = Guid.NewGuid().ToString() + ContactHubConstants.PdfFileExtension;
             var filePath = Path.Combine(serverPath, file);
-            var isFileCreated = await Utility.CreateFile(filePath, contactList);
-            return Json(new { filename = (isFileCreated) ? Path.GetFileName(filePath) : null }, JsonRequestBehavior.AllowGet);
+            var isFileCreated = await Utility.CreateFile(filePath, contactList,FileType.Pdf);
+            return Json(new { filename = (isFileCreated) ? file : null, path = ContactHubConstants.DownloadFileMethod }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -123,13 +123,14 @@ namespace ContactHub_MVC.Controllers
         }
 
         [AllowAnonymous]
-        [Route("Download/{fileName}")]
+        [HttpGet]
         public async Task<ActionResult> Download(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName)) { return null; }
             var folder = Server.MapPath(ContactHubConstants.TempFilePath);
             var path = Path.Combine(folder, fileName);
             var fileInfo = new FileInfo(path);
-            switch(fileInfo.Exists)
+            switch (fileInfo.Exists)
             {
                 case true:
                     var fileBytes = await Utility.FileBytes(path);

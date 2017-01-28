@@ -31,7 +31,18 @@
                 <td colspan="6">
                     <button type="button" class="btn btn-default" id="selectall"><i class="fa fa-check-square-o"></i> Select All</button>
                     <button type="button" class="btn btn-default" id="selectnone"><i class="fa fa-square-o"></i> Select None</button>
-                    <button type="button" class="btn btn-default pull-right" id="downloadAll"><i class="fa fa-download"></i> Download all</button>
+                    <div class="btn-group pull-right dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggler="dropdown" aria-haspopup="true" aria-expanded="false" id="filetype">
+                            <i class="fa fa-download"></i> Download All <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="filetype">
+                            <li><a href="#">Choose file type</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Portable Document Format (PDF)</a></li>
+                            <li><a href="#">Plain Text (Txt)</a></li>
+                            <li><a href="#">Comma Separated Values (Csv)</a></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
         </tbody>

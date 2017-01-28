@@ -152,5 +152,12 @@ class ValidationUtil{
         return;
     }
 
+    CreateForm(type,url,params){
+        let form = document.createElement("form");
+        form.setAttribute("method","");
+        form.setAttribute("action","");
+        form
+    }
+
 }
 export {ValidationUtil}
