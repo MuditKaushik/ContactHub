@@ -91,7 +91,7 @@ namespace ContactHub_MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DownloadContact(params int[] Ids)
+        public async Task<ActionResult> DownloadContact(int FileType,params int[] Ids)
         {
             var contactList = new List<ContactDetails>();
             foreach (var id in Ids)
@@ -101,7 +101,7 @@ namespace ContactHub_MVC.Controllers
             var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
             var file = Guid.NewGuid().ToString() + ContactHubConstants.PdfFileExtension;
             var filePath = Path.Combine(serverPath, file);
-            var isFileCreated = await Utility.CreateFile(filePath, contactList,FileType.Pdf);
+            var isFileCreated = await Utility.CreateFile(filePath, contactList,FileType);
             return Json(new { filename = (isFileCreated) ? file : null, path = ContactHubConstants.DownloadFileMethod }, JsonRequestBehavior.AllowGet);
         }
 

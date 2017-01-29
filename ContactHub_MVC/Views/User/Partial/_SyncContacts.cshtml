@@ -31,16 +31,16 @@
                 <td colspan="6">
                     <button type="button" class="btn btn-default" id="selectall"><i class="fa fa-check-square-o"></i> Select All</button>
                     <button type="button" class="btn btn-default" id="selectnone"><i class="fa fa-square-o"></i> Select None</button>
-                    <div class="btn-group pull-right dropup">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggler="dropdown" aria-haspopup="true" aria-expanded="false" id="filetype">
+                    <div class="dropup pull-right">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" id="fileType">
                             <i class="fa fa-download"></i> Download All <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="filetype">
-                            <li><a href="#">Choose file type</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Portable Document Format (PDF)</a></li>
-                            <li><a href="#">Plain Text (Txt)</a></li>
-                            <li><a href="#">Comma Separated Values (Csv)</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="fileType">
+                            <li><a>Choose file type</a></li>
+                            <li class="divider" role="separator"></li>
+                            <li><a rel="pdf" id="downloadAll">Portable Document Format (PDF)</a></li>
+                            <li><a rel="txt" id="downloadAll">Plain Text (Txt)</a></li>
+                            <li><a rel="csv" id="downloadAll">Comma Separated Values (Csv)</a></li>
                         </ul>
                     </div>
                 </td>

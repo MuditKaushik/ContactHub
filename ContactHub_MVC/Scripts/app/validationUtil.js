@@ -84,6 +84,15 @@ class ValidationUtil{
         return Types;
     }
 
+    FileType(){
+        let Types = {
+            PDF: 1,
+            TXT:2,
+            CSV:3
+        };
+        return Types;
+    }
+
     CreateDismissButton(){
         let dismissButton = document.createElement("button");
         let span = document.createElement("span");

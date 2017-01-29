@@ -74,10 +74,18 @@ $(document).on("click","#selectnone",function(){
 });
 
 $(document).on("click","#downloadAll",function(){
+    let element = $(this);
+    let type = element.attr("rel");
     let contactIds = GetCheckBoxValue();
     $("#contactError").html("");
     if(contactIds.length > 0){
-        DA.DownloadContactDetails(contactIds)
+        let fileType = undefined;
+        $.each(Util.FileType(),function(key,val){
+            if(key.toLowerCase() == type){
+                fileType = val;
+            }
+        });
+        DA.DownloadContactDetails(contactIds,fileType)
             .done((data)=>{
                 if(data.filename!==null){
                     let activeObject = new ActiveXObject("Scripting.FileSystemObject");

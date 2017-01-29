@@ -34,10 +34,11 @@ class DataAccess extends Utility {
             .catch((err)=>{return err});
     }
 
-                                                                    /*------Post Requests-------*/
+    /*------Post Requests-------*/
 
-    DownloadContactDetails(contactIds){
-        return $.when(this.jQueryAjaxCall("Post","/User/DownloadContact",{Ids:contactIds}))
+    DownloadContactDetails(contactIds,fileType){
+        debugger;
+        return $.when(this.jQueryAjaxCall("Post","/User/DownloadContact",{FileType:fileType,Ids:contactIds}))
         .then((response)=>{return response})
         .catch((err)=>{return err});
     }

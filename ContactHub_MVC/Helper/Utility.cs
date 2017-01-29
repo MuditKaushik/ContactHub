@@ -30,7 +30,7 @@ namespace ContactHub_MVC.Helper
             }
         }
 
-        public async static Task<bool> CreateFile(string filePath, List<ContactDetails> Contacts, FileType fileType)
+        public async static Task<bool> CreateFile(string filePath, List<ContactDetails> Contacts, int fileType)
         {
             var IsFileCreated = default(bool);
         createNew: var fileInfo = new FileInfo(filePath);
@@ -42,9 +42,9 @@ namespace ContactHub_MVC.Helper
                     File.Create(filePath).Close();
                     switch (fileType)
                     {
-                        case FileType.Text: IsFileCreated = await CreateTextFile(filePath, Contacts); break;
-                        case FileType.Pdf: IsFileCreated = await CreatePdfFile(filePath, Contacts); break;
-                        case FileType.Contact: IsFileCreated = await CreateCsvFile(filePath, Contacts); break;
+                        case (int)FileType.Text: IsFileCreated = await CreateTextFile(filePath, Contacts); break;
+                        case (int)FileType.Pdf: IsFileCreated = await CreatePdfFile(filePath, Contacts); break;
+                        case (int)FileType.Contact: IsFileCreated = await CreateCsvFile(filePath, Contacts); break;
                         default: break;
                     }
                     break;
