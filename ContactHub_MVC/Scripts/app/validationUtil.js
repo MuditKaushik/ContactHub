@@ -68,7 +68,7 @@ class ValidationUtil{
             ContactsNotSelectedForRestore:"Please select contact.",
             ContactsNotSelectedForDownload:"Please select contact for download.",
             CountryDialCodeNotSeleted:"Please select dial code.",
-            ContactModeNotSelected:"Please select contact mode.",
+            ContactModeNotSelected:"Please select reply mode.",
             ContactNumberNotEntered:"Please enter the phone number."
         };
         return message;
@@ -87,8 +87,8 @@ class ValidationUtil{
     FileType(){
         let Types = {
             PDF: 1,
-            TXT:2,
-            CSV:3
+            TXT: 2,
+            CSV: 3
         };
         return Types;
     }

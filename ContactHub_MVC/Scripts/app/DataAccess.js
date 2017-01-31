@@ -37,7 +37,6 @@ class DataAccess extends Utility {
     /*------Post Requests-------*/
 
     DownloadContactDetails(contactIds,fileType){
-        debugger;
         return $.when(this.jQueryAjaxCall("Post","/User/DownloadContact",{FileType:fileType,Ids:contactIds}))
         .then((response)=>{return response})
         .catch((err)=>{return err});

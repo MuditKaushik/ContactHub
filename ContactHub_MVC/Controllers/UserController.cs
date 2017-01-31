@@ -54,7 +54,7 @@ namespace ContactHub_MVC.Controllers
             var model = new SyncContacts()
             {
                 ContactList = GetContactList(false).Take(10).ToList(),
-                ContactModeList = ContactMode(),
+                ContactModeList = Utility.ContactMode(),
             };
             return View(model);
         }
@@ -99,7 +99,7 @@ namespace ContactHub_MVC.Controllers
                 contactList.Add(GetContact(id.ToString(), false));
             }
             var serverPath = Server.MapPath(ContactHubConstants.TempFilePath);
-            var file = Guid.NewGuid().ToString() + ContactHubConstants.PdfFileExtension;
+            var file = Guid.NewGuid().ToString() + $".{Enum.GetName(typeof(FileType),FileType).ToLower().ToString()}";
             var filePath = Path.Combine(serverPath, file);
             var isFileCreated = await Utility.CreateFile(filePath, contactList,FileType);
             return Json(new { filename = (isFileCreated) ? file : null, path = ContactHubConstants.DownloadFileMethod }, JsonRequestBehavior.AllowGet);
@@ -141,13 +141,12 @@ namespace ContactHub_MVC.Controllers
             return null;
         }
 
+        #region Private Methods
         private IEnumerable<ContactDetails> GetContactList(bool isEditable)
         {
             var contactList = new List<ContactDetails>();
             var contactsPath = Server.MapPath(ContactHubConstants.ContactListPath);
-            var contactFileRead = System.IO.File.ReadAllText(contactsPath);
-            var contactJsonList = JsonConvert.DeserializeObject<dynamic>(contactFileRead);
-            foreach (var item in contactJsonList)
+            foreach (var item in Utility.GetContactData(contactsPath))
             {
                 contactList.Add(new ContactDetails()
                 {
@@ -165,21 +164,6 @@ namespace ContactHub_MVC.Controllers
             return contactList;
         }
 
-        private IEnumerable<SelectListItem> ContactMode()
-        {
-            var contactModes = new List<SelectListItem>() {
-                new SelectListItem() {
-                Text="Mobile",
-                Value = "1"
-            },
-            new SelectListItem() {
-                Text = "Email",
-                Value = "2"
-            }
-            };
-            return contactModes;
-        }
-
         private ContactDetails GetContact(string contactId, bool isEditable)
         {
             var ContactList = GetContactList(isEditable);
@@ -192,6 +176,6 @@ namespace ContactHub_MVC.Controllers
             var path = Server.MapPath(ContactHubConstants.CountryFileJsonPath);
             return Utility.GetContryDialCode(path).Result;
         }
-
+        #endregion
     }
 }

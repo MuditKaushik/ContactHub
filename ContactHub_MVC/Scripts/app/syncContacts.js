@@ -1,5 +1,6 @@
 ﻿import {DataAccess} from './DataAccess.js';
 import {ValidationUtil} from './validationUtil.js';
+
 let DA = new DataAccess();
 let Util = new ValidationUtil();
 
@@ -20,6 +21,16 @@ function GetCheckBoxValue(){
         }
     });
     return contactIds;
+};
+
+function GetFileType(fileType){
+    let typeValue = 0;
+    $.each(Util.FileType(),function(key,val){
+        if(key.toLowerCase() == fileType){
+            typeValue = val;
+        }
+    });
+    return typeValue;
 };
 
 DA.GetCountryDialCodes()
@@ -54,8 +65,11 @@ $(document).on("click","#show",function(){
 
 $(document).on("click","#download",function(){
     let contactId = $(this).val();
-    DA.DownloadContactDetails(contactId)
+    DA.DownloadContactDetails(contactId,Util.FileType().PDF)
     .done((data)=>{
+        if(data.filename!==null){
+            window.open(`${data.path}?fileName=${data.filename}`,"_blank");
+        }
     })
     .fail((err)=>{
         console.log(err);
@@ -74,22 +88,14 @@ $(document).on("click","#selectnone",function(){
 });
 
 $(document).on("click","#downloadAll",function(){
-    let element = $(this);
-    let type = element.attr("rel");
     let contactIds = GetCheckBoxValue();
     $("#contactError").html("");
     if(contactIds.length > 0){
-        let fileType = undefined;
-        $.each(Util.FileType(),function(key,val){
-            if(key.toLowerCase() == type){
-                fileType = val;
-            }
-        });
+        let fileType = GetFileType($(this).attr("rel"));
         DA.DownloadContactDetails(contactIds,fileType)
             .done((data)=>{
                 if(data.filename!==null){
-                    let activeObject = new ActiveXObject("Scripting.FileSystemObject");
-                    //window.open(`${data.path}?fileName = ${data.filename}`,"_blank","height=auto,width:200");
+                    window.open(`${data.path}?fileName=${data.filename}`,"_blank");
                 }
             })
             .fail((err)=>{

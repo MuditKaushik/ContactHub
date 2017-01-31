@@ -204,6 +204,7 @@
     <Compile Include="Models\AccountModel\SignupViewModel.cs" />
     <Compile Include="Models\UserModel\AddContactsViewModel.cs" />
     <Compile Include="Models\UserModel\ContactViewModel.cs" />
+    <Compile Include="Models\UserModel\DownloadFileViewModel.cs" />
     <Compile Include="Models\UserModel\SearchContactsViewModel.cs" />
     <Compile Include="Models\UserModel\SyncContacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
