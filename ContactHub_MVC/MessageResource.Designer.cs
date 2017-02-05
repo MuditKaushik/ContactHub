@@ -70,7 +70,7 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reply at.
+        ///   Looks up a localized string similar to Notify By.
         /// </summary>
         public static string ContactMode {
             get {
@@ -133,7 +133,7 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid email address.
+        ///   Looks up a localized string similar to Invalid email address..
         /// </summary>
         public static string InvalidEmail {
             get {
@@ -169,6 +169,15 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field contains only digits..
+        /// </summary>
+        public static string NumericValue {
+            get {
+                return ResourceManager.GetString("NumericValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -178,7 +187,7 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password doesn&apos;t match.
+        ///   Looks up a localized string similar to Password doesn&apos;t match..
         /// </summary>
         public static string PasswordNotMatch {
             get {
@@ -196,7 +205,16 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feild required.
+        ///   Looks up a localized string similar to Contact must be 10 digit long..
+        /// </summary>
+        public static string PhoneNumberLength {
+            get {
+                return ResourceManager.GetString("PhoneNumberLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field required..
         /// </summary>
         public static string RequiredFeilds {
             get {

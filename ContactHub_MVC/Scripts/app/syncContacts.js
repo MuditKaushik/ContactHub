@@ -6,8 +6,8 @@ let Util = new ValidationUtil();
 
 function GetCheckBoxValue(){
     let contactIds = new Array();
-    let className = $(".sync_contacts");
-    $.each(className,function(key,val){
+    let elements = $(".sync_contacts");
+    $.each(elements,function(key,val){
         let element = $(val);
         if(element.is(":checked")) {
             let value = element.val();

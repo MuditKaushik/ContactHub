@@ -121,7 +121,7 @@
     <value>Confirm Password</value>
   </data>
   <data name="ContactMode" xml:space="preserve">
-    <value>Reply at</value>
+    <value>Notify By</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
@@ -142,7 +142,7 @@
     <value>Gender</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email address</value>
+    <value>Invalid email address.</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
@@ -153,17 +153,23 @@
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
+  <data name="NumericValue" xml:space="preserve">
+    <value>Field contains only digits.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="PasswordNotMatch" xml:space="preserve">
-    <value>Password doesn't match</value>
+    <value>Password doesn't match.</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="PhoneNumberLength" xml:space="preserve">
+    <value>Contact must be 10 digit long.</value>
+  </data>
   <data name="RequiredFeilds" xml:space="preserve">
-    <value>Feild required</value>
+    <value>Field required.</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Username</value>
