@@ -169,6 +169,15 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Should have digits only..
+        /// </summary>
+        public static string NumericNumber {
+            get {
+                return ResourceManager.GetString("NumericNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -192,6 +201,15 @@ namespace ContactHub_MVC {
         public static string PhoneNumber {
             get {
                 return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact number atleast 10 digit long..
+        /// </summary>
+        public static string PhoneNumberLength {
+            get {
+                return ResourceManager.GetString("PhoneNumberLength", resourceCulture);
             }
         }
         
