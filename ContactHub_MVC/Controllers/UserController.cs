@@ -109,9 +109,9 @@ namespace ContactHub_MVC.Controllers
         public ActionResult SyncContacts(SyncContacts model)
         {
             var contacts = new List<ContactDetails>();
-            foreach (var id in model.ContactIds)
+            foreach (var item in model.ContactList.TakeWhile(x => x.IsSelected))
             {
-                contacts.Add(GetContact(id.ToString(), false));
+                contacts.Add(GetContact(item.Id, false));
             }
             return Json(new { result = contacts }, JsonRequestBehavior.AllowGet);
         }

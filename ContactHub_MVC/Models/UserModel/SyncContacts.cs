@@ -23,9 +23,9 @@ namespace ContactHub_MVC.Models.UserModel
     }
     public partial class SyncContacts
     {
-        public IEnumerable<ContactDetails> ContactList { get; set; }
+        public IList<ContactDetails> ContactList { get; set; }
         public IEnumerable<SelectListItem> ContactModeList { get; set; }
         public IEnumerable<SelectListItem> DialCodeList { get; set; }
-        public IEnumerable<int> ContactIds { get; set; }
+        public IList<int> ContactIds { get; set; }
     }
 }

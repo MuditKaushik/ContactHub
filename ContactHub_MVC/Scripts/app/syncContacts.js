@@ -33,6 +33,11 @@ function GetFileType(fileType){
     return typeValue;
 };
 
+function ValidateSyncFormContacts(formData){
+    console.log(formData);
+    return;
+};
+
 DA.GetCountryDialCodes()
     .done((data)=>{
         let targetId = $("#dialcode");
@@ -157,4 +162,8 @@ $(document).on("click","#restore",function(){
             .fail((err)=>{return err});
     }
     return false;
+});
+
+$(document).on("submit","#SyncContacts",this,function(){
+    console.log(this);
 });
