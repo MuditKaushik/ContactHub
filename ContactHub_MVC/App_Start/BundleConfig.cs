@@ -33,6 +33,9 @@ namespace ContactHub_MVC
             //jsany bootstrap js
             bundle.Add(new ScriptBundle("~/Script/jsany_Bootstrap").Include(
                 "~/Scripts/JsanyBootstrap/jsany-bootstrap.js"));
+            //Bootstrap date-picker
+            bundle.Add(new ScriptBundle("~/Scripts/BootstrapDatePicker").Include(
+                "~/Scripts/bootstrap/bootstrap-datepicker.js"));
             /*--------------------Stylesheet bundles--------------------*/
             //bootstrap css
             bundle.Add(new StyleBundle("~/Content/bootstrap").Include(

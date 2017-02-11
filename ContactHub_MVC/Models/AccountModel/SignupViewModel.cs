@@ -17,7 +17,7 @@ namespace ContactHub_MVC.Models.AccountModel
 
         [Display(Name = "EmailAddress",ResourceType = typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]
-        [RegularExpression(ContactHubConstants.EmailRegularexpression,ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "InvalidEmail")]
+        [RegularExpression(ContactHubConstants.RegularExpressionConstants.EmailRegularexpression,ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "InvalidEmail")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
 

@@ -12,5 +12,6 @@ namespace ContactHub_MVC.Models.UserModel
         public string FileName { get; set; }
         public FileType FileType { get; set; }
         public List<int> ContactIds { get; set; }
+        public bool IsFileCreated { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace ContactHub_MVC.Models.UserModel
 
         [Display(Name ="PhoneNumber",ResourceType =typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]
+        [StringLength(maximumLength:10,ErrorMessageResourceName = "PhoneNumberLength", ErrorMessageResourceType = typeof(MessageResource),MinimumLength = 10)]        
         public string Phone { get; set; }
     }
     public partial class AddContactsViewModel

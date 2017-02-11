@@ -115,9 +115,6 @@ $(document).on("click","#downloadAll",function(){
 
 $(document).on("click","#restore",function(){
     let contactIds = GetCheckBoxValue();
-    let dialCode = Util.ValidateTextBoxById("dialcode");
-    let contactMode = Util.ValidateTextBoxById("contactMode");
-    let contactNumber = Util.ValidateTextBoxById("phoneNumber");
     let targetId=$("#status");
     let isFormValid = true;
 

@@ -168,5 +168,14 @@ class ValidationUtil{
         form
     }
 
+    ShowCalender(){
+        let Options = {
+            clearBtn:true,
+            autoclose:true,
+            format:'dd/mm/yyyy',
+            showOnFocus:true
+        };
+        return Options;
+    }
 }
 export {ValidationUtil}
