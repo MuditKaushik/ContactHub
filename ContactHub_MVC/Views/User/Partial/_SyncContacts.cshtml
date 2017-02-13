@@ -1,4 +1,4 @@
-﻿@model  IList<ContactHub_MVC.Models.UserModel.ContactDetails>
+﻿@model  ContactHub_MVC.Models.UserModel.SyncContacts
 
 <div class="table-responsive thumbnail">
     <table class="table text-center text-justify table-condensed">
@@ -13,17 +13,17 @@
             </tr>
         </thead>
         <tbody>
-            @for (var i = 0; i < Model.Count; i++)
+            @for (var i = 0; i < Model.ContactList.Count; i++)
             {
                 <tr>
-                    <td>@Html.CheckBoxFor(m => Model[i].IsSelected, new { @class="sync_contacts",@value=Model[i].Id})</td>
-                    <td>@Model[i].FullName</td>
-                    <td>@Model[i].EmailAddress</td>
-                    <td>@Model[i].Gender</td>
-                    <td>@Model[i].Phone</td>
+                    <td>@Html.CheckBoxFor(m => Model.ContactList[i].IsSelected, new { @class = "sync_contacts", @value = @Model.ContactList[i].Id }) @Html.HiddenFor(h => h.ContactList[i].Id)</td>
+                    <td>@Model.ContactList[i].FullName</td>
+                    <td>@Model.ContactList[i].EmailAddress</td>
+                    <td>@Model.ContactList[i].Gender</td>
+                    <td>@Model.ContactList[i].Phone</td>
                     <td>
-                        <button class="fa fa-eye btn-link customLink" value="@Model[i].Id" id="show"></button>
-                        <button class="fa fa-download btn-link customLink" value="@Model[i].Id" id="download"></button>
+                        <button class="fa fa-eye btn-link customLink" value="@Model.ContactList[i].Id" id="show"></button>
+                        <button class="fa fa-download btn-link customLink" value="@Model.ContactList[i].Id" id="download"></button>
                     </td>
                 </tr>
             }

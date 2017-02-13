@@ -4,12 +4,14 @@ using System.Net;
 using System.Web;
 using System.Linq;
 using System.Text;
+using System.Web.UI;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using iTextSharp.text;
 using System.Net.Mail;
 using iTextSharp.text.pdf;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using iTextSharp.text.pdf.parser;
 using System.Collections.Generic;
 using ContactHub_MVC.Models.UserModel;
@@ -119,26 +121,15 @@ namespace ContactHub_MVC.Helper
             return contactJsonList;
         }
 
-        public async static Task<bool> SendEmail(string CredentialPath)
+        public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
         {
             var isMailSent = default(bool);
-            var Mail = new MailMessage();
-            using (var smtp = new SmtpClient())
+            foreach(var mail in ReceiverMails)
             {
-                var credential = GetMailingCredential(CredentialPath).Result;
-                var mailingCredentials = new NetworkCredential()
-                {
-                    UserName = credential.Username,
-                    Password = credential.Password
-                };
-                smtp.Host = credential.SmtpHost;
-                smtp.EnableSsl = credential.SmtpEnableSsl;
-                smtp.Port = credential.SmtpPort;
-                await smtp.SendMailAsync(Mail);
-                isMailSent = true;
+                isMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
             }
             return await Task.FromResult(isMailSent);
-        }
+        } 
 
         #region PrivateMethods
         private async static Task<bool> CreateTextFile(string filePath, List<ContactDetails> Contacts)
@@ -158,7 +149,6 @@ namespace ContactHub_MVC.Helper
             }
             return await Task.FromResult(isFileCreated);
         }
-
         private async static Task<bool> CreatePdfFile(string filePath, List<ContactDetails> Contacts)
         {
             var isFileCreated = default(bool);
@@ -213,13 +203,19 @@ namespace ContactHub_MVC.Helper
             }
             return await Task.FromResult(isFileCreated);
         }
-
         private async static Task<bool> CreateCsvFile(string filePath, List<ContactDetails> Contacts)
         {
             var isFileCreated = default(bool);
+            var HeaderValues = new[] { "Name", "Gender", "DOB", "Phone", "Email" };
+            using (var fileStream = new FileStream(filePath,FileMode.OpenOrCreate,FileAccess.ReadWrite))
+            {
+                using (var csvWriter = new StreamWriter(fileStream))
+                {
+                    isFileCreated = true;
+                }
+            }
             return await Task.FromResult(isFileCreated);
         }
-
         private async static Task<StringBuilder> ReadPdfFile(string filePath)
         {
             var pdfText = new StringBuilder();
@@ -242,21 +238,48 @@ namespace ContactHub_MVC.Helper
             }
             return await Task.FromResult(pdfText);
         }
-
-        private static Task<EmailCredentialViewModel> GetMailingCredential(string Path)
+        private async static Task<bool> SendEmail(string SendTo, string FilePath,string AttachmentPath)
+        {
+            var isMailSent = default(bool);
+            using (var smtp = new SmtpClient())
+            {
+                var credential = await GetMailingCredential(FilePath);
+                var Mail = new MailMessage(credential.From,SendTo,credential.Subject,credential.Body);
+                if (!string.IsNullOrEmpty(AttachmentPath))
+                {
+                    var Attachment = new Attachment(AttachmentPath);
+                    Mail.Attachments.Add(Attachment);
+                }
+                var mailingCredentials = new NetworkCredential() {
+                    UserName = credential.Username,
+                    Password = credential.Password
+                };
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Host = credential.SmtpHost;
+                smtp.EnableSsl = credential.SmtpEnableSsl;
+                smtp.Port = credential.SmtpPort;
+                smtp.Send(Mail);
+                isMailSent = true;
+            }
+            return await Task.FromResult(isMailSent);
+        }
+        private async static Task<EmailCredentialViewModel> GetMailingCredential(string FilePath)
         {
             var mailingCredential = new EmailCredentialViewModel();
-            var readData = File.ReadAllText(Path);
+            var readData = File.ReadAllText(FilePath);
             var credentialData = JsonConvert.DeserializeObject<dynamic>(readData);
-            foreach (var item in credentialData)
+            foreach(var item in credentialData)
             {
                 mailingCredential.Username = item.Username;
                 mailingCredential.Password = item.Password;
-                mailingCredential.SmtpHost = item.Smtp_Host;
+                mailingCredential.SmtpHost = item.Smtp_HostOutlook;
                 mailingCredential.SmtpPort = item.Smtp_Port;
                 mailingCredential.SmtpEnableSsl = item.Smtp_EnableSsl;
+                mailingCredential.From = item.From;
+                mailingCredential.Subject = item.Subject;
+                mailingCredential.Body = item.Body;
             }
-            return Task.FromResult(mailingCredential);
+            return await Task.FromResult(mailingCredential);
         }
         #endregion
     }

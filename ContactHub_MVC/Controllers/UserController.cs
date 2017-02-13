@@ -103,7 +103,8 @@ namespace ContactHub_MVC.Controllers
             {
                 contactList.Add(GetContact(id.ToString(), false));
             }
-            var result = await CreateFile(FileType, contactList);
+            var serverPath = Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath);
+            var result = await CreateFile(FileType, contactList, serverPath);
             return Json(new { filename = (result.IsFileCreated) ? result.FileName : null, path = ContactHubConstants.DataPathConstants.DownloadFileMethod }, JsonRequestBehavior.AllowGet);
         }
 
@@ -111,13 +112,24 @@ namespace ContactHub_MVC.Controllers
         public async Task<ActionResult> SyncContacts(SyncContacts model)
         {
             var contacts = new List<ContactDetails>();
-            foreach (var id in model.ContactIds)
+            foreach (var item in model.ContactList.Where(x => x.IsSelected))
             {
-                contacts.Add(GetContact(id.ToString(), false));
+                contacts.Add(GetContact(item.Id, false));
             }
-            var path = Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential);
-            var MailSent = await Utility.SendEmail(path);
-            return Json(new { result = MailSent }, JsonRequestBehavior.AllowGet);
+            var createFile = CreateFile((int)FileType.Pdf, contacts, Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath)).Result;
+            switch (createFile.IsFileCreated)
+            {
+                case true:
+                    var attachmentFilePath = Path.Combine(Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath), createFile.FileName);
+                    var HasMailSent = Utility.SynchronizeContacts(new[] { "garima.solanki8@gmail.com" },
+                        Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential), attachmentFilePath);
+                    var HasFileDeleted = Utility.DeleteFile(attachmentFilePath);
+                    var result = await Task.WhenAll(HasMailSent, HasFileDeleted);
+                    break;
+                case false:break;
+                default:break;
+            }
+            return View();
         }
 
         [HttpGet]
@@ -178,11 +190,10 @@ namespace ContactHub_MVC.Controllers
             var path = Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileJsonPath);
             return Utility.GetContryDialCode(path).Result;
         }
-        private async Task<DownloadFileViewModel> CreateFile(int FileType,List<ContactDetails> ContactList)
+        private async Task<DownloadFileViewModel> CreateFile(int FileType,List<ContactDetails> ContactList,string FilePath)
         {
-            var serverPath = Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath);
             var file = Guid.NewGuid().ToString() + $".{Enum.GetName(typeof(FileType), FileType).ToLower().ToString()}";
-            var filePath = Path.Combine(serverPath, file);
+            var filePath = Path.Combine(FilePath, file);
             var isFileCreated = await Utility.CreateFile(filePath, ContactList, FileType);
             return await Task.FromResult(
                 new DownloadFileViewModel() {
