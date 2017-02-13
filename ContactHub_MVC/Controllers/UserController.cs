@@ -108,15 +108,16 @@ namespace ContactHub_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult SyncContacts(SyncContacts model)
+        public async Task<ActionResult> SyncContacts(SyncContacts model)
         {
             var contacts = new List<ContactDetails>();
             foreach (var id in model.ContactIds)
             {
                 contacts.Add(GetContact(id.ToString(), false));
             }
-
-            return Json(new { result = contacts }, JsonRequestBehavior.AllowGet);
+            var path = Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential);
+            var MailSent = await Utility.SendEmail(path);
+            return Json(new { result = MailSent }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

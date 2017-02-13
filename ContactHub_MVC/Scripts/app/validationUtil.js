@@ -165,7 +165,7 @@ class ValidationUtil{
         let form = document.createElement("form");
         form.setAttribute("method","");
         form.setAttribute("action","");
-        form
+        return false;
     }
 
     ShowCalender(){
@@ -176,6 +176,18 @@ class ValidationUtil{
             showOnFocus:true
         };
         return Options;
+    }
+
+    CreateNode(nodeName,Id){
+        let node = document.createElement(nodeName.toString());
+        node.setAttribute(Id,`${Id}-error`);
+        return node.outerHTML;
+    }
+
+    CustomValidation(elementId){
+        let elementName = $(`#${elementId}`).attr("name");
+        let errorElement = $(`#${elementId}[data-valmsg-for = ${elementName}]`);
+        errorElement.append(this.CreateNode("span",elementId));
     }
 }
 export {ValidationUtil}

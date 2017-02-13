@@ -4,6 +4,8 @@ import {ValidationUtil} from './validationUtil.js';
 let DA = new DataAccess();
 let Util = new ValidationUtil();
 
+Util.AddAttribute("phoneNumber","numericValidation");
+
 function GetCheckBoxValue(){
     let contactIds = new Array();
     let className = $(".sync_contacts");
@@ -48,6 +50,10 @@ DA.GetCountryDialCodes()
     .fail((err)=>{
         console.log(err);
     });
+
+$(document).on("keyup","#phoneNumber",function(){
+    Util.CustomValidation("phoneNumber");
+});
 
 $(document).on("click","#show",function(){
     let contactId = $(this).val();

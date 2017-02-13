@@ -19,6 +19,7 @@
                 @using (Html.BeginForm("SyncContacts","User",FormMethod.Post, new { @class=""}))
                 {
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(h=>h.ContactIds, new { @class="contactIds"})
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-md-4 col-lg-3 col-sm-3 control-label">@Html.DisplayNameFor(d => d.ContactMode)</label>

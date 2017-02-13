@@ -83,7 +83,6 @@ namespace ContactHub_MVC.Helper
 
         public static Task<IEnumerable<SelectListItem>> GetContryDialCode(string filePath)
         {
-            var data = GetMailingCredential().Result;
             var dialCodes = new List<SelectListItem>();
             var file = File.ReadAllText(filePath);
             var fileData = JsonConvert.DeserializeObject<dynamic>(file);
@@ -120,8 +119,28 @@ namespace ContactHub_MVC.Helper
             return contactJsonList;
         }
 
+        public async static Task<bool> SendEmail(string CredentialPath)
+        {
+            var isMailSent = default(bool);
+            var Mail = new MailMessage();
+            using (var smtp = new SmtpClient())
+            {
+                var credential = GetMailingCredential(CredentialPath).Result;
+                var mailingCredentials = new NetworkCredential()
+                {
+                    UserName = credential.Username,
+                    Password = credential.Password
+                };
+                smtp.Host = credential.SmtpHost;
+                smtp.EnableSsl = credential.SmtpEnableSsl;
+                smtp.Port = credential.SmtpPort;
+                await smtp.SendMailAsync(Mail);
+                isMailSent = true;
+            }
+            return await Task.FromResult(isMailSent);
+        }
+
         #region PrivateMethods
-        
         private async static Task<bool> CreateTextFile(string filePath, List<ContactDetails> Contacts)
         {
             var isFileCreated = default(bool);
@@ -224,30 +243,12 @@ namespace ContactHub_MVC.Helper
             return await Task.FromResult(pdfText);
         }
 
-        private async static Task<bool> SendEmail(MailMessage Mail)
-        {
-            var isMailSent = default(bool);
-            using (var smtp = new SmtpClient())
-            {
-                var credential = GetMailingCredential().Result;
-                var mailingCredentials = new NetworkCredential() {
-                    UserName = credential.Username,
-                    Password = credential.Password
-                };
-                smtp.Host = credential.SmtpHost;
-                smtp.EnableSsl = credential.SmtpEnableSsl;
-                smtp.Port = credential.SmtpPort;
-                await smtp.SendMailAsync(Mail);
-                isMailSent = true;
-            }
-            return await Task.FromResult(isMailSent);
-        }
-        private static Task<EmailCredentialViewModel> GetMailingCredential()
+        private static Task<EmailCredentialViewModel> GetMailingCredential(string Path)
         {
             var mailingCredential = new EmailCredentialViewModel();
-            var readData = File.ReadAllText(ContactHubConstants.DataPathConstants.MailingCredential);
+            var readData = File.ReadAllText(Path);
             var credentialData = JsonConvert.DeserializeObject<dynamic>(readData);
-            foreach(var item in credentialData)
+            foreach (var item in credentialData)
             {
                 mailingCredential.Username = item.Username;
                 mailingCredential.Password = item.Password;
