@@ -2,6 +2,7 @@
 /// <reference path="app/account.js" />
 /// <reference path="app/addcontacts.js" />
 /// <reference path="app/dataaccess.js" />
+/// <reference path="app/settings.js" />
 /// <reference path="app/signup.js" />
 /// <reference path="app/synccontacts.js" />
 /// <reference path="app/userdashboard.js" />

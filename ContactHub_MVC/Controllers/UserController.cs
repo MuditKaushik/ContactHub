@@ -41,6 +41,7 @@ namespace ContactHub_MVC.Controllers
             };
             return View(model);
         }
+
         [HttpPost]
         public ActionResult AddContacts(AddContactsViewModel model)
         {
@@ -136,6 +137,31 @@ namespace ContactHub_MVC.Controllers
         public ActionResult GetDialCodes()
         {
             return Json(GetContryDialCodes(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetDeactivationReason()
+        {
+            var serverPath = Server.MapPath(ContactHubConstants.DataPathConstants.DeactivateAccounts);
+            return Json(Utility.GetReasonForDeactivateAccount(serverPath), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeUserInformation(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeactivateUserAccount(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]

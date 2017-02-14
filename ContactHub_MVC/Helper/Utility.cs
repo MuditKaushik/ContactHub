@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.MailingModel;
+using System.Web.Script.Serialization;
 
 namespace ContactHub_MVC.Helper
 {
@@ -119,6 +120,13 @@ namespace ContactHub_MVC.Helper
             var contactFileRead = System.IO.File.ReadAllText(filePath);
             var contactJsonList = JsonConvert.DeserializeObject<dynamic>(contactFileRead);
             return contactJsonList;
+        }
+
+        public static dynamic GetReasonForDeactivateAccount(string filePath)
+        {
+            var deactiveAccountFile = File.ReadAllText(filePath);
+            var reasontypes = new JavaScriptSerializer().Deserialize<dynamic>(deactiveAccountFile);
+            return reasontypes;
         }
 
         public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)

@@ -15,6 +15,7 @@ namespace ContactHub_MVC.CommonData.Constants
             public const string CountryFileJsonPath = @"~/CommonData/Files/contries.json";
             public const string ContactListPath = @"~/CommonData/Files/data.json";
             public const string MailingCredential = @"~/CommonData/Files/MailingCredentials.json";
+            public const string DeactivateAccounts = @"~/CommonData/Files/deactivateAccount.json";
             public const string TempFilePath = @"~/TempFile";
             public const string DownloadFileMethod = @"/User/Download";
         }

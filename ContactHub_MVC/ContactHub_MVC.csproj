@@ -146,6 +146,7 @@
     <Content Include="Scripts\app\Account.js" />
     <Content Include="Scripts\app\addContacts.js" />
     <Content Include="Scripts\app\DataAccess.js" />
+    <Content Include="Scripts\app\settings.js" />
     <Content Include="Scripts\app\signup.js" />
     <Content Include="Scripts\app\syncContacts.js" />
     <Content Include="Scripts\app\Util.js" />
@@ -172,6 +173,7 @@
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
     <Content Include="CommonData\Files\MailingCredentials.json" />
+    <Content Include="CommonData\Files\deactivateAccount.json" />
     <None Include="Properties\PublishProfiles\ContactHub.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -296,6 +298,7 @@
     <Compile Include="Models\UserModel\DownloadFileViewModel.cs" />
     <Compile Include="Models\UserModel\SearchContactsViewModel.cs" />
     <Compile Include="Models\UserModel\SyncContacts.cs" />
+    <Compile Include="Models\UserModel\UserSettingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -150,11 +150,20 @@
   <data name="MiddleName" xml:space="preserve">
     <value>Middle Name</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
   <data name="NumericNumber" xml:space="preserve">
     <value>Should have digits only.</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old Password</value>
+  </data>
+  <data name="OtherReason" xml:space="preserve">
+    <value>Other Reason</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -167,6 +176,9 @@
   </data>
   <data name="PhoneNumberLength" xml:space="preserve">
     <value>Contact number atleast 10 digit long.</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
   </data>
   <data name="RequiredFeilds" xml:space="preserve">
     <value>Feild required</value>
