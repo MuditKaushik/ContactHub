@@ -35,5 +35,6 @@ namespace ContactHub_MVC.Models.UserModel
     public partial class AddContactsViewModel
     {
         public IEnumerable<ContactDetails> Contacts { get; set; }
+        public string FileNames { get; set; }
     }
 }

@@ -18,6 +18,7 @@ using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.MailingModel;
 using System.Web.Script.Serialization;
+using Microsoft.Ajax.Utilities;
 
 namespace ContactHub_MVC.Helper
 {
@@ -138,6 +139,18 @@ namespace ContactHub_MVC.Helper
             }
             return await Task.FromResult(isMailSent);
         } 
+
+        public static async Task<IEnumerable<HttpPostedFileBase>> GetFilesToUpload(string FileNames,IEnumerable<HttpPostedFileBase> Files)
+        {
+            if (string.IsNullOrEmpty(FileNames)) { return await Task.FromResult(Enumerable.Empty<HttpPostedFileBase>()); }
+            var UploadFiles = new List<HttpPostedFileBase>();
+            var Names = FileNames.Split(',').Select(x => x.Trim()).ToArray();
+            foreach(var name in Names)
+            {
+                UploadFiles.Add(Files.DistinctBy(x=>x.FileName).FirstOrDefault(x=>x.FileName.Equals(name)));
+            }
+            return await Task.FromResult(UploadFiles);
+        }
 
         #region PrivateMethods
         private async static Task<bool> CreateTextFile(string filePath, List<ContactDetails> Contacts)

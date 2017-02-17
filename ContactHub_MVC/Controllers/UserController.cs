@@ -43,8 +43,9 @@ namespace ContactHub_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddContacts(AddContactsViewModel model)
+        public ActionResult AddContacts(AddContactsViewModel model,IList<HttpPostedFileBase> uploadFiles)
         {
+            var files = Utility.GetFilesToUpload(model.FileNames, uploadFiles).Result;
             return RedirectToAction("AddContacts");
         }
 
