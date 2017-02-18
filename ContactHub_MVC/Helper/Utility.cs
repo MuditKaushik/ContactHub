@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.MailingModel;
+using Newtonsoft.Json.Linq;
 
 namespace ContactHub_MVC.Helper
 {
@@ -37,7 +38,7 @@ namespace ContactHub_MVC.Helper
         public async static Task<bool> CreateFile(string filePath, List<ContactDetails> Contacts, int fileType)
         {
             var IsFileCreated = default(bool);
-            createNew: var fileInfo = new FileInfo(filePath);
+        createNew: var fileInfo = new FileInfo(filePath);
             switch (fileInfo.Exists)
             {
                 case true:
@@ -119,15 +120,15 @@ namespace ContactHub_MVC.Helper
             return contactJsonList;
         }
 
-        public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
+        public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails, string CredentialFilePath, string AttachmentFilePath)
         {
             var isMailSent = default(bool);
-            foreach(var mail in ReceiverMails)
+            foreach (var mail in ReceiverMails)
             {
-                isMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
+                isMailSent = await SendEmail(mail, CredentialFilePath, AttachmentFilePath);
             }
             return await Task.FromResult(isMailSent);
-        } 
+        }
 
         #region PrivateMethods
         private async static Task<bool> CreateTextFile(string filePath, List<ContactDetails> Contacts)
@@ -228,19 +229,20 @@ namespace ContactHub_MVC.Helper
             }
             return await Task.FromResult(pdfText);
         }
-        private async static Task<bool> SendEmail(string SendTo, string FilePath,string AttachmentPath)
+        private async static Task<bool> SendEmail(string SendTo, string FilePath, string AttachmentPath)
         {
             var isMailSent = default(bool);
             using (var smtp = new SmtpClient())
             {
                 var credential = await GetMailingCredential(FilePath);
-                var Mail = new MailMessage(credential.From,SendTo,credential.Subject,credential.Body);
+                var Mail = new MailMessage(credential.From, SendTo, credential.Subject, credential.Body);
                 if (!string.IsNullOrEmpty(AttachmentPath))
                 {
                     var Attachment = new Attachment(AttachmentPath);
                     Mail.Attachments.Add(Attachment);
                 }
-                var mailingCredentials = new NetworkCredential() {
+                var mailingCredentials = new NetworkCredential()
+                {
                     UserName = credential.Username,
                     Password = credential.Password
                 };
@@ -255,20 +257,21 @@ namespace ContactHub_MVC.Helper
         }
         private async static Task<EmailCredentialViewModel> GetMailingCredential(string FilePath)
         {
-            var mailingCredential = new EmailCredentialViewModel();
             var readData = File.ReadAllText(FilePath);
-            var credentialData = JsonConvert.DeserializeObject<dynamic>(readData);
-            foreach(var item in credentialData)
+            var ParsedData = JToken.Parse(readData);
+            var Credentials = (JArray)ParsedData.SelectToken("Credentials");
+            var SmtpEssentials = (JArray)ParsedData.SelectToken("SmtpEssentials");
+            var mailingCredential = new EmailCredentialViewModel()
             {
-                mailingCredential.Username = item.Username;
-                mailingCredential.Password = item.Password;
-                mailingCredential.SmtpHost = item.Smtp_Host;
-                mailingCredential.SmtpPort = item.Smtp_Port;
-                mailingCredential.SmtpEnableSsl = item.Smtp_EnableSsl;
-                mailingCredential.From = item.From;
-                mailingCredential.Subject = item.Subject;
-                mailingCredential.Body = item.Body;
-            }
+                Username = ParsedData.Credentials.Username,
+                Password = ParsedData.Credentials.Password,
+                SmtpHost = ParsedData.SmtpEssentials.Smtp_Host,
+                SmtpPort = ParsedData.SmtpEssentials.Smtp_Port,
+                SmtpEnableSsl = ParsedData.SmtpEssentials.Smtp_EnableSsl,
+                From = ParsedData.MailFeilds.From,
+                Subject = ParsedData.MailFeilds.Subject,
+                Body = ParsedData.MailFeilds.Body,
+            };
             return await Task.FromResult(mailingCredential);
         }
         #endregion
