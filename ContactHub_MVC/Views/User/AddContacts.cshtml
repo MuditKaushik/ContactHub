@@ -75,7 +75,15 @@
                         </div>
                         <div class="col-md-5">
                             <input class="clearfix" type="file" name="uploadFiles" id="uploadFiles" multiple />
-                            <ul class="list-group" id="fileList"></ul>
+                            <div class="page-header hide" id="validFileHeader">
+                                <h4 class="forColorBlack">Valid Files</h4>
+                            </div>
+                            <ul class="list-group" id="validFileList"></ul>
+                            <div class="page-header hide" id="invalidFileHeader">
+                                <button class="btn btn-danger btn-xs pull-right" type="button" id="clearInvalid">Clear</button>
+                                <h4 class="forColorBlack">Invalid Files</h4>
+                            </div>
+                            <ul class="list-group" id="invalidFileList"></ul>
                         </div>
                     }
                 </div>

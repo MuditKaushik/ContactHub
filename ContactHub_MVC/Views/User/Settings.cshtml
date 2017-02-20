@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label class="col-lg-5 control-label">@Html.DisplayNameFor(d => d.ChangeUserPassword.OldPassword)</label>
                         <div class="col-lg-6">
-                            @Html.TextBoxFor(m => m.ChangeUserPassword.OldPassword, new { @class = "form-control" })
+                            @Html.PasswordFor(m => m.ChangeUserPassword.OldPassword, new { @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.ChangeUserPassword.OldPassword)
                         </div>
                     </div>

@@ -97,9 +97,17 @@ class ValidationUtil{
         let extension = {
             Text:".txt",
             PDF:".pdf",
-            CSV:".csv"
+            CSV:".csv",
         };
         return extension;
+    }
+
+    FileContent(){
+        let Content = {
+            Image:"image/png",
+            PDF:"application/pdf",
+        };
+        return Content;
     }
 
     CreateDismissButton(){
@@ -134,11 +142,13 @@ class ValidationUtil{
         return button;
     }
 
-    CreateList(value,Type){
+    CreateList(value,Type,NeedButton){
         let list = document.createElement("li");
         list.classList.add("list-group-item");
         list.innerHTML += value;
-        list.appendChild(this.CreateButton(value,Type));
+        if(NeedButton){
+            list.appendChild(this.CreateButton(value,Type));
+        }
         return list.outerHTML;
     }
 
@@ -185,6 +195,14 @@ class ValidationUtil{
             }
         }
         return isDuplicate;
+    }
+
+    ArrayListHasElement(arrayList){
+        let HasElement = false;
+        if(arrayList.length > 0){
+            HasElement = true
+        }
+        return HasElement;
     }
 
     ToggleHideShowElementById(elementId,visibility){
