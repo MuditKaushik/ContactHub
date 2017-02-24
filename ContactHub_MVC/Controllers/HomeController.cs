@@ -2,8 +2,9 @@
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.AccountModel;
+using ContactHub_MVC.CommonData.Constants;
+using System.Security.Claims;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -34,6 +35,9 @@ namespace ContactHub_MVC.Controllers
         [HttpPost]
         public ActionResult Login(SigninViewModel model)
         {
+            var claims = new List<Claim>();
+            claims.Add(new Claim("UserName",model.Username));
+            claims.Add(new Claim("UserId", "1"));
             return View();
         }
         [HttpGet]

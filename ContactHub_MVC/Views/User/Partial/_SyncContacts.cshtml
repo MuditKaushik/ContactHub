@@ -16,7 +16,7 @@
             @for (var i = 0; i < Model.ContactList.Count; i++)
             {
                 <tr>
-                    <td>@Html.CheckBoxFor(m => Model.ContactList[i].IsSelected, new { @class = "sync_contacts", @value = @Model.ContactList[i].Id }) @Html.HiddenFor(h => h.ContactList[i].Id)</td>
+                    <td>@Html.CheckBoxFor(m => Model.ContactList[i].IsSelected, new { @class = "sync_contacts" ,@rel=Model.ContactList[i].Id }) @Html.HiddenFor(h => h.ContactList[i].Id)</td>
                     <td>@Model.ContactList[i].FullName</td>
                     <td>@Model.ContactList[i].EmailAddress</td>
                     <td>@Model.ContactList[i].Gender</td>

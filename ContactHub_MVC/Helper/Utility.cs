@@ -130,14 +130,18 @@ namespace ContactHub_MVC.Helper
             return reasontypes;
         }
 
-        public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
+        public static async Task<MailingFailureViewModel> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
         {
-            var isMailSent = default(bool);
+            var mailingStatus = new MailingFailureViewModel();
             foreach(var mail in ReceiverMails)
             {
-                isMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
+                mailingStatus.IsMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
+                if (!mailingStatus.IsMailSent)
+                {
+                    mailingStatus.EmailFailures.Add(mail);
+                }
             }
-            return await Task.FromResult(isMailSent);
+            return await Task.FromResult(mailingStatus);
         } 
 
         public static async Task<IEnumerable<HttpPostedFileBase>> GetFilesToUpload(string FileNames,IEnumerable<HttpPostedFileBase> Files)
@@ -279,8 +283,13 @@ namespace ContactHub_MVC.Helper
                 smtp.Host = credential.SmtpHost;
                 smtp.EnableSsl = credential.SmtpEnableSsl;
                 smtp.Port = credential.SmtpPort;
-                smtp.Send(Mail);
-                isMailSent = true;
+                try {
+                    smtp.Send(Mail);
+                    isMailSent = true;
+                }
+                catch (Exception ex) {
+                    isMailSent = false;
+                }
             }
             return await Task.FromResult(isMailSent);
         }

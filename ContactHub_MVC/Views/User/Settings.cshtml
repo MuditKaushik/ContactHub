@@ -98,9 +98,9 @@
             <div class="panel-body">
                 @using (Ajax.BeginForm("DeactivateUserAccount","User",new AjaxOptions() {
                     HttpMethod = "Post",
-                    OnComplete = "GetData()",
-                    OnBegin = "GetData()",
-                    OnSuccess = "GetData()"
+                    OnComplete = "GetData(data)",
+                    OnBegin = "GetData(data)",
+                    OnSuccess = "GetData(data)"
                 }))
                 {
                 <div class="form-horizontal" role="form">
