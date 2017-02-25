@@ -11,7 +11,8 @@
                 <h2 class="forColorWhite">Sync Contacts</h2>
             </div>
             <div class="row hide" id="syncStatus">
-                <div class="col-md-12" id="status"></div>
+                <div class="col-md-12" id="status">
+                </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -19,21 +20,22 @@
                 </div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(h=>h.ContactIds, new { @class="contactIds"})
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-md-4 col-lg-3 col-sm-3 control-label">@Html.DisplayNameFor(d => d.ContactMode)</label>
-                            <div class="col-md-8 col-lg-8 col-sm-4">
+                            <div class="col-md-8 col-lg-6 col-sm-4">
                                 @Html.DropDownListFor(m => m.ContactMode, (IEnumerable<SelectListItem>)Model.ContactModeList, "Select", new { @class = "form-control", @id = "contactMode" })
                                 @Html.ValidationMessageFor(v => v.ContactMode)
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 col-lg-3 col-sm-3 control-label">@Html.DisplayNameFor(d => d.PhoneNumber)</label>
-                            <div class="col-md-4 col-lg-4 col-sm-2">
+                            <div class="col-md-4 col-lg-3 col-sm-2">
                                 @Html.DropDownListFor(m => m.DialCode, Enumerable.Empty<SelectListItem>(), "Dial code", new { @class = "form-control", @id = "dialcode" })
                                 @Html.ValidationMessageFor(v => v.DialCode)
                             </div>
-                            <div class="col-md-4 col-lg-4 col-sm-2">
+                            <div class="col-md-4 col-lg-3 col-sm-2">
                                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @id = "phoneNumber", @maxlength = "10" })
                                 @Html.ValidationMessageFor(v => v.PhoneNumber)
                             </div>

@@ -11,10 +11,10 @@ namespace ContactHub_MVC.Models.UserModel
 {
     public partial class SyncContacts
     {
-        [Display(Name = "PhoneNumber",ResourceType =typeof(MessageResource))]
-        [Required(ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "RequiredFeilds")]
+        [Display(Name = "PhoneNumber", ResourceType = typeof(MessageResource))]
+        [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]
         [StringLength(maximumLength: 10, ErrorMessageResourceName = "PhoneNumberLength", ErrorMessageResourceType = typeof(MessageResource), MinimumLength = 10)]
-        [RegularExpression(ContactHubConstants.RegularExpressionConstants.NumericNumberOnly,ErrorMessageResourceType =typeof(MessageResource),ErrorMessageResourceName = "NumericNumber")]
+        [RegularExpression(ContactHubConstants.RegularExpressionConstants.NumericNumberOnly, ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "NumericNumber")]
         public string PhoneNumber { get; set; }
         [Display(Name = "ContactMode", ResourceType = typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource), ErrorMessageResourceName = "RequiredFeilds")]

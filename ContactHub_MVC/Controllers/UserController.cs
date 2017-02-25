@@ -41,9 +41,11 @@ namespace ContactHub_MVC.Controllers
             };
             return View(model);
         }
+
         [HttpPost]
-        public ActionResult AddContacts(AddContactsViewModel model)
+        public ActionResult AddContacts(AddContactsViewModel model,IList<HttpPostedFileBase> uploadFiles)
         {
+            var files = Utility.GetFilesToUpload(model.FileNames, uploadFiles).Result;
             return RedirectToAction("AddContacts");
         }
 
@@ -121,7 +123,7 @@ namespace ContactHub_MVC.Controllers
             {
                 case true:
                     var attachmentFilePath = Path.Combine(Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath), createFile.FileName);
-                    var HasMailSent = Utility.SynchronizeContacts(new[] { "muditk18@gmail.com" }, 
+                    var HasMailSent = Utility.SynchronizeContacts(new[] { "garima.solanki8@gmail.com"},
                         Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential), attachmentFilePath);
                     var HasFileDeleted = Utility.DeleteFile(attachmentFilePath);
                     var result = await Task.WhenAll(HasMailSent, HasFileDeleted);
@@ -129,13 +131,38 @@ namespace ContactHub_MVC.Controllers
                 case false:break;
                 default:break;
             }
-            return Json(new { result = contacts }, JsonRequestBehavior.AllowGet);
+            return View();
         }
 
         [HttpGet]
         public ActionResult GetDialCodes()
         {
             return Json(GetContryDialCodes(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetDeactivationReason()
+        {
+            var serverPath = Server.MapPath(ContactHubConstants.DataPathConstants.DeactivateAccounts);
+            return Json(Utility.GetReasonForDeactivateAccount(serverPath), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeUserInformation(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeactivateUserAccount(UserSettingViewModel model)
+        {
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]

@@ -1,4 +1,4 @@
-﻿
+﻿@model ContactHub_MVC.Models.UserModel.UserSettingViewModel
 @{
     ViewBag.Title = "Settings";
 }
@@ -6,6 +6,136 @@
 <div class="page-header">
     <h2 class="forColorWhite">Settings</h2>
 </div>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Change Password</h3>
+            </div>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("UpdatePassword","User",new AjaxOptions() {
+                    HttpMethod = "Post",
+                    OnSuccess= "GetData()",
+                    OnFailure= "GetData()",
+                    OnComplete = "GetData()"
+                }))
+                {
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">@Html.DisplayNameFor(d => d.ChangeUserPassword.OldPassword)</label>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.ChangeUserPassword.OldPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ChangeUserPassword.OldPassword)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">@Html.DisplayNameFor(d => d.ChangeUserPassword.NewPassword)</label>
+                        <div class="col-lg-6">
+                            @Html.PasswordFor(m => m.ChangeUserPassword.NewPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ChangeUserPassword.NewPassword)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">@Html.DisplayNameFor(d => d.ChangeUserPassword.ConfirmPassword)</label>
+                        <div class="col-lg-6">
+                            @Html.PasswordFor(m => m.ChangeUserPassword.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ChangeUserPassword.ConfirmPassword)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1 col-lg-push-5">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Change Information</h3>
+            </div>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("ChangeUserInformation","User",new AjaxOptions() {
+                    HttpMethod = "Post",
+                    OnSuccess = "GetData()",
+                    OnComplete = "GetData()",
+                    OnFailure = "GetData()"
+                }))
+                {
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">@Html.DisplayNameFor(d => d.ChangeUserInformation.Username)</label>
+                        <div class="col-lg-7">
+                            @Html.TextBoxFor(m => m.ChangeUserInformation.Username, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ChangeUserInformation.Username)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">@Html.DisplayNameFor(d => d.ChangeUserInformation.EmailAddress)</label>
+                        <div class="col-lg-7">
+                            @Html.TextBoxFor(m => m.ChangeUserInformation.EmailAddress, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ChangeUserInformation.EmailAddress)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1 col-lg-push-4">
+                            <button class="btn btn-primary" type="submit">Update</button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Deactivate Account</h3>
+            </div>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("DeactivateUserAccount","User",new AjaxOptions() {
+                    HttpMethod = "Post",
+                    OnComplete = "GetData()",
+                    OnBegin = "GetData()",
+                    OnSuccess = "GetData()"
+                }))
+                {
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">@Html.DisplayNameFor(d => d.DeactivateUserAccount.Reason)</label>
+                        <div class="col-lg-7">
+                            @Html.DropDownListFor(m => m.DeactivateUserAccount.Reason, Enumerable.Empty<SelectListItem>(),"Select", new { @class = "form-control" ,@id="reason"})
+                            @Html.ValidationMessageFor(x => x.DeactivateUserAccount.Reason)
+                        </div>
+                    </div>
+                    <div class="form-group hide" id="others">
+                        <label class="control-label col-lg-4">@Html.DisplayNameFor(d => d.DeactivateUserAccount.Others)</label>
+                        <div class="col-lg-7">
+                            @Html.TextAreaFor(m => m.DeactivateUserAccount.Others, 2, 5, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.DeactivateUserAccount.Others)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1 col-lg-push-4">
+                            <button class="btn btn-danger" type="submit">Deactivate</button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body"></div>
+        </div>
+    </div>
+</div>
 @Scripts.Render("~/Script/bootstrap")
-<script>System.import("../Scripts/app/Account.js")</script>
-
+@Scripts.Render("~/Script/jQuery-Unobtrusive")
+@*<script>System.import("../Scripts/app/Account.js")</script>*@
+<script>System.import("../Scripts/app/settings.js")</script>

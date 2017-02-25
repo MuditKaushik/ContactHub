@@ -160,6 +160,15 @@ namespace ContactHub_MVC {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nick Name.
         /// </summary>
         public static string NickName {
@@ -174,6 +183,24 @@ namespace ContactHub_MVC {
         public static string NumericNumber {
             get {
                 return ResourceManager.GetString("NumericNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Reason.
+        /// </summary>
+        public static string OtherReason {
+            get {
+                return ResourceManager.GetString("OtherReason", resourceCulture);
             }
         }
         
@@ -210,6 +237,15 @@ namespace ContactHub_MVC {
         public static string PhoneNumberLength {
             get {
                 return ResourceManager.GetString("PhoneNumberLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason.
+        /// </summary>
+        public static string Reason {
+            get {
+                return ResourceManager.GetString("Reason", resourceCulture);
             }
         }
         

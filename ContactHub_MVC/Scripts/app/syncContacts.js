@@ -33,11 +33,6 @@ function GetFileType(fileType){
     return typeValue;
 };
 
-function ValidateSyncFormContacts(formData){
-    console.log(formData);
-    return;
-};
-
 DA.GetCountryDialCodes()
     .done((data)=>{
         let targetId = $("#dialcode");
@@ -111,56 +106,4 @@ $(document).on("click","#downloadAll",function(){
         $("#contactError").html(errorMessage).focus();
     }
     return;
-});
-
-$(document).on("click","#restore",function(){
-    let contactIds = GetCheckBoxValue();
-    let targetId=$("#status");
-    let isFormValid = true;
-
-    if(contactIds.length <= 0){
-        isFormValid = false;
-        Util.ToggleHideShowElementById("syncStatus",true);
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelectedForRestore,true);
-        targetId.html(errorMessage).focus();
-    }else if(!dialCode){
-        isFormValid = false;
-        Util.ToggleHideShowElementById("syncStatus",true);
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().CountryDialCodeNotSeleted,true);
-        targetId.html(errorMessage).focus();
-    }else if(!contactMode){
-        isFormValid = false;
-        Util.ToggleHideShowElementById("syncStatus",true);
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactModeNotSelected,true);
-        targetId.html(errorMessage).focus();
-    }else if(!contactNumber){
-        isFormValid = false;
-        Util.ToggleHideShowElementById("syncStatus",true);
-        let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactNumberNotEntered,true);
-        targetId.html(errorMessage).focus();
-    }else{
-        targetId.html("");
-        Util.ToggleHideShowElementById("syncStatus",true);
-    }
-
-    if(isFormValid){
-        let model = {
-            PhoneNumber:$("#phoneNumber").val(),
-            ContactMode:$("#contactMode").val(),
-            DialCode:$("#dialcode").val(),
-            ContactIds:contactIds
-        };
-
-        DA.SyncContacts(model)
-            .done((data)=>{
-                console.log(data);
-                return data;
-            })
-            .fail((err)=>{return err});
-    }
-    return false;
-});
-
-$(document).on("submit","#SyncContacts",this,function(){
-    console.log(this);
 });

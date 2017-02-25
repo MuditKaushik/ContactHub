@@ -93,6 +93,15 @@ class ValidationUtil{
         return Types;
     }
 
+    FileExtension(){
+        let extension = {
+            Text:".txt",
+            PDF:".pdf",
+            CSV:".csv"
+        };
+        return extension;
+    }
+
     CreateDismissButton(){
         let dismissButton = document.createElement("button");
         let span = document.createElement("span");
@@ -107,6 +116,30 @@ class ValidationUtil{
 
         dismissButton.appendChild(span);
         return dismissButton;
+    }
+
+    CreateButton(value,Type){
+        let button = document.createElement("button");
+        button.setAttribute("id","deleteFile");
+        button.setAttribute("value",value);
+        button.setAttribute("type","button");
+        button.classList.add("btn");
+        switch(Type){
+            case this.MessageType().Error: button.classList.add("btn-danger"); break;
+            case this.MessageType().Success: button.classList.add("btn-success"); break;
+        }
+        button.classList.add("btn-xs");
+        button.classList.add("pull-right");
+        button.innerHTML = "Delete";
+        return button;
+    }
+
+    CreateList(value,Type){
+        let list = document.createElement("li");
+        list.classList.add("list-group-item");
+        list.innerHTML += value;
+        list.appendChild(this.CreateButton(value,Type));
+        return list.outerHTML;
     }
 
     CreateAlertMessage(alertType,message,isDisimssable){
@@ -144,6 +177,16 @@ class ValidationUtil{
         return alertDiv.outerHTML;
     }
 
+    IsDuplicate(value,ArrayList){
+        let isDuplicate = false;
+        if(ArrayList.length > 0){
+            if(ArrayList.indexOf(value) !== -1){
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
+    }
+
     ToggleHideShowElementById(elementId,visibility){
         let selector = $(`#${elementId}`);
         switch(visibility){
@@ -165,7 +208,7 @@ class ValidationUtil{
         let form = document.createElement("form");
         form.setAttribute("method","");
         form.setAttribute("action","");
-        form
+        return false;
     }
 
     ShowCalender(){
@@ -176,6 +219,18 @@ class ValidationUtil{
             showOnFocus:true
         };
         return Options;
+    }
+
+    CreateNode(nodeName,Id){
+        let node = document.createElement(nodeName.toString());
+        node.setAttribute(Id,`${Id}-error`);
+        return node.outerHTML;
+    }
+
+    CustomValidation(elementId){
+        let elementName = $(`#${elementId}`).attr("name");
+        let errorElement = $(`#${elementId}[data-valmsg-for = ${elementName}]`);
+        errorElement.append(this.CreateNode("span",elementId));
     }
 }
 export {ValidationUtil}

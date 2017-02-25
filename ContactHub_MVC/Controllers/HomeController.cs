@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.Models.AccountModel;
+using ContactHub_MVC.Helper;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -51,25 +52,10 @@ namespace ContactHub_MVC.Controllers
         [HttpGet]
         public JsonResult GetCountryListXml()
         {
-            return Json(GetXmlCountryList(), JsonRequestBehavior.AllowGet);
+            var countryList = Utility.GetXmlCountryList(Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileXmlPath));
+            return Json(countryList, JsonRequestBehavior.AllowGet);
         }
 
-        protected CountryList GetXmlCountryList()
-        {
-            var countryData = new List<SelectListItem>();
-            var xmlPath = Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileXmlPath);
-            var xmlDocument = XDocument.Load(xmlPath);
-            var elements = xmlDocument.Element("countries").Elements("country");
-            foreach (var item in elements)
-            {
-                countryData.Add(new SelectListItem()
-                {
-                    Text = $"{item.Value}({item.Attribute("code").Value})",
-                    Value = item.Value
-                });
-            }
-            return new CountryList() { Countries = countryData};
-        }
         protected CountryList GetJsonCountryList()
         {
             var countryData = new List<SelectListItem>();

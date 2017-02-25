@@ -34,6 +34,12 @@ class DataAccess extends Utility {
             .catch((err)=>{return err});
     }
 
+    GetAccountReasons(){
+        return $.when(this.jQueryAjaxCall("Get","/User/GetDeactivationReason",null))
+        .then((response)=>{return response})
+        .catch((err)=>{return err});
+    }
+
     /*------Post Requests-------*/
 
     DownloadContactDetails(contactIds,fileType){

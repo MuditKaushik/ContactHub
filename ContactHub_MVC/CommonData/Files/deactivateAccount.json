@@ -1,0 +1,10 @@
+﻿{
+  "Reason": [
+    {
+      "Not for me": 1,
+      "Not good": 2,
+      "Not responsive": 3,
+      "Other": 4
+    }
+  ]
+}
