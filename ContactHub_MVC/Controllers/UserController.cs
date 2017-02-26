@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
-using ContactHub_MVC.Models.UserModel;
-using ContactHub_MVC.CommonData.Constants;
 using Newtonsoft.Json;
 using ContactHub_MVC.Helper;
-using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using ContactHub_MVC.Models.UserModel;
+using ContactHub_MVC.CommonData.Constants;
+using ContactHub_MVC.Filters;
 
 namespace ContactHub_MVC.Controllers
 {
+    [ContactHubAuthenticationFilter]
     public class UserController : Controller
     {
         // GET: User
@@ -118,18 +120,19 @@ namespace ContactHub_MVC.Controllers
             {
                 contacts.Add(GetContact(item.Id, false));
             }
-            var createFile = CreateFile((int)FileType.Pdf, contacts, Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath)).Result;
-            switch (createFile.IsFileCreated)
+            if (contacts.Count > default(int))
             {
-                case true:
-                    var attachmentFilePath = Path.Combine(Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath), createFile.FileName);
-                    var HasMailSent = Utility.SynchronizeContacts(new[] { "garima.solanki8@gmail.com"},
-                        Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential), attachmentFilePath);
-                    var HasFileDeleted = Utility.DeleteFile(attachmentFilePath);
-                    var result = await Task.WhenAll(HasMailSent, HasFileDeleted);
-                    break;
-                case false:break;
-                default:break;
+                var createFile = CreateFile((int)FileType.Pdf, contacts, Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath)).Result;
+                switch (createFile.IsFileCreated)
+                {
+                    case true:
+                        var attachmentFilePath = Path.Combine(Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath), createFile.FileName);
+                        var HasMailSent = await Utility.SynchronizeContacts(new[] { "garima.solanki8@gmail.com" }, Server.MapPath(ContactHubConstants.DataPathConstants.MailingCredential), attachmentFilePath);
+                        var HasFileDeleted = await Utility.DeleteFile(attachmentFilePath);
+                        break;
+                    case false: break;
+                    default: break;
+                }
             }
             return View();
         }

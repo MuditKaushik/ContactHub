@@ -133,36 +133,21 @@ namespace ContactHub_MVC.Helper
         }
 
         public static IEnumerable<SelectListItem> GetXmlCountryList(string filePath)
+        public static async Task<MailingFailureViewModel> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
         {
-            var countryList = new List<SelectListItem>();
-            switch (File.Exists(filePath))
+            var mailingStatus = new MailingFailureViewModel();
+            foreach(var mail in ReceiverMails)
             {
-                case true:
-                    var xmlDocument = XDocument.Load(filePath);
-                    var elements = xmlDocument.Element("countries").Elements("country");
-                    foreach (var item in elements)
-                    {
-                        countryList.Add(new SelectListItem()
-                        {
-                            Text = $"{item.Value}({item.Attribute("code").Value})",
-                            Value = $"{item.Value}"
-                        });
-                    }
-                    break;
-                case false: return Enumerable.Empty<SelectListItem>();
-            }
-            return countryList;
-        }
-
-        public static async Task<bool> SynchronizeContacts(IEnumerable<string> ReceiverMails, string CredentialFilePath, string AttachmentFilePath)
-        {
-            var isMailSent = default(bool);
-            foreach (var mail in ReceiverMails)
-            {
-                isMailSent = await SendEmail(mail, CredentialFilePath, AttachmentFilePath);
+                mailingStatus.IsMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
+                if (!mailingStatus.IsMailSent)
+                {
+                    mailingStatus.EmailFailures.Add(mail);
+                }
             }
             return await Task.FromResult(isMailSent);
         }
+            return await Task.FromResult(mailingStatus);
+        } 
 
         public static async Task<IEnumerable<HttpPostedFileBase>> GetFilesToUpload(string FileNames, IEnumerable<HttpPostedFileBase> Files)
         {
@@ -301,11 +286,16 @@ namespace ContactHub_MVC.Helper
                     Password = credential.Credentials.Password
                 };
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Host = credential.SmtpEssentials.SmtpHost;
-                smtp.EnableSsl = credential.SmtpEssentials.SmtpEnableSsl;
-                smtp.Port = credential.SmtpEssentials.SmtpPort;
-                smtp.Send(Mail);
-                isMailSent = true;
+                smtp.Host = credential.SmtpHost;
+                smtp.EnableSsl = credential.SmtpEnableSsl;
+                smtp.Port = credential.SmtpPort;
+                try {
+                    smtp.Send(Mail);
+                    isMailSent = true;
+                }
+                catch (Exception ex) {
+                    isMailSent = false;
+                }
             }
             return await Task.FromResult(isMailSent);
         }

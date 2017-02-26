@@ -10,7 +10,7 @@ function GetCheckBoxValue(){
     $.each(elements,function(key,val){
         let element = $(val);
         if(element.is(":checked")) {
-            let value = element.val();
+            let value = element.attr("rel");
             if(contactIds.length > 0){
                 if(contactIds.indexOf(value) === -1){
                     contactIds.push(value);
@@ -89,7 +89,8 @@ $(document).on("click","#selectnone",function(){
 
 $(document).on("click","#downloadAll",function(){
     let contactIds = GetCheckBoxValue();
-    $("#contactError").html("");
+    let contactErrorTarget = $("#contactError");
+    contactErrorTarget.html("");
     if(contactIds.length > 0){
         let fileType = GetFileType($(this).attr("rel"));
         DA.DownloadContactDetails(contactIds,fileType)
@@ -99,11 +100,12 @@ $(document).on("click","#downloadAll",function(){
                 }
             })
             .fail((err)=>{
-                console.log(err);
+                let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ServerError,true);
+                contactErrorTarget.html(errorMessage).focus();
             });
     }else{
         let errorMessage = Util.CreateAlertMessage(Util.MessageType().Error,Util.Messages().ContactsNotSelectedForDownload,true);
-        $("#contactError").html(errorMessage).focus();
+        contactErrorTarget.html(errorMessage).focus();
     }
     return;
 });
