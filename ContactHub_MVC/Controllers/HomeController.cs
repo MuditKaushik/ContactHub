@@ -59,22 +59,5 @@ namespace ContactHub_MVC.Controllers
             var countryList = Utility.GetXmlCountryList(Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileXmlPath));
             return Json(countryList, JsonRequestBehavior.AllowGet);
         }
-
-        protected CountryList GetJsonCountryList()
-        {
-            var countryData = new List<SelectListItem>();
-            var jsonPath = Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileJsonPath);
-            var jsonFile = System.IO.File.ReadAllText(jsonPath); 
-            var jsonDocument = JsonConvert.DeserializeObject<dynamic>(jsonFile);
-            foreach (var item in jsonDocument)
-            {
-                countryData.Add(new SelectListItem()
-                {
-                    Text = $"{item.name}({item.code})",
-                    Value = item.name
-                });
-            }
-            return new CountryList() { Countries = countryData};
-        }
     }
 }

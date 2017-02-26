@@ -14,18 +14,17 @@ namespace ContactHub_MVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
             routes.MapRoute(
+                name: "InvalidUrl",
+                url: "{controller}/{action}/{errorCode}",
+                defaults: new { controller = "Unauthorize", action = "Index" },
+                constraints: new { errorCode = @"\d+" }
+               );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-            //routes.MapRoute(
-            //    name: "InvalidUrl",
-            //    url: "{*url}",
-            //    defaults: new
-            //    {
-            //        controller = "Unauthorize",
-            //        action = "Index"
-            //    });
         }
     }
 }

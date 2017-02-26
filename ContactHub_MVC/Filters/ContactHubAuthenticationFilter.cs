@@ -17,11 +17,11 @@ namespace ContactHub_MVC.Filters
             var user = filterContext.HttpContext.User;
             if (IsAjaxRequest && !user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index",errorCode="500" }));
             }
             else if (user == null || !user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = "500" }));
             }
         }
 
@@ -30,7 +30,7 @@ namespace ContactHub_MVC.Filters
             var user = filterContext.HttpContext.User;
             if (user == null || user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new HttpUnauthorizedResult();
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = "500" }));
             }
         }
     }

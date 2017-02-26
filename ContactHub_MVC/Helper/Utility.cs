@@ -21,6 +21,7 @@ using System.Web.Script.Serialization;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace ContactHub_MVC.Helper
 {
@@ -133,21 +134,36 @@ namespace ContactHub_MVC.Helper
         }
 
         public static IEnumerable<SelectListItem> GetXmlCountryList(string filePath)
-        public static async Task<MailingFailureViewModel> SynchronizeContacts(IEnumerable<string> ReceiverMails,string CredentialFilePath,string AttachmentFilePath)
+        {
+            if (File.Exists(filePath))
+            {
+                var countryList = new List<SelectListItem>();
+                var xmlDocument = XDocument.Load(filePath);
+                var element = xmlDocument.Element("countries").Elements("country");
+                foreach(var item in element)
+                {
+                    countryList.Add(new SelectListItem() {
+                        Text = $"{item.Value}({item.Attribute("code").Value})",
+                        Value = $"{item.Value}"
+                    });
+                }
+                return countryList;
+            }
+            return Enumerable.Empty<SelectListItem>();
+        }
+        public static async Task<MailingFailureViewModel> SynchronizeContacts(IEnumerable<string> ReceiverMails, string CredentialFilePath, string AttachmentFilePath)
         {
             var mailingStatus = new MailingFailureViewModel();
-            foreach(var mail in ReceiverMails)
+            foreach (var mail in ReceiverMails)
             {
-                mailingStatus.IsMailSent = await SendEmail(mail, CredentialFilePath,AttachmentFilePath);
+                mailingStatus.IsMailSent = await SendEmail(mail, CredentialFilePath, AttachmentFilePath);
                 if (!mailingStatus.IsMailSent)
                 {
                     mailingStatus.EmailFailures.Add(mail);
                 }
             }
-            return await Task.FromResult(isMailSent);
-        }
             return await Task.FromResult(mailingStatus);
-        } 
+        }
 
         public static async Task<IEnumerable<HttpPostedFileBase>> GetFilesToUpload(string FileNames, IEnumerable<HttpPostedFileBase> Files)
         {
@@ -286,14 +302,16 @@ namespace ContactHub_MVC.Helper
                     Password = credential.Credentials.Password
                 };
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Host = credential.SmtpHost;
-                smtp.EnableSsl = credential.SmtpEnableSsl;
-                smtp.Port = credential.SmtpPort;
-                try {
+                smtp.Host = credential.SmtpEssentials.SmtpHost;
+                smtp.EnableSsl = credential.SmtpEssentials.SmtpEnableSsl;
+                smtp.Port = credential.SmtpEssentials.SmtpPort;
+                try
+                {
                     smtp.Send(Mail);
                     isMailSent = true;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     isMailSent = false;
                 }
             }
@@ -303,13 +321,27 @@ namespace ContactHub_MVC.Helper
         {
             var mailingCredential = new EmailCredentialViewModel();
             var readData = File.ReadAllText(FilePath);
-            var JSSerializer = new JavaScriptSerializer();
-            var Data = JSSerializer.ConvertToType<EmailCredentialViewModel>(readData);
-            //var parsedData = JToken.Parse(readData);
-            //var MailCredentials = (JArray)parsedData.SelectToken("Credentials");
-            //var SmtpHost = (JArray)parsedData.SelectToken("SmtpEssentials");
-            //var MailFields = (JArray)parsedData.SelectToken("MailFeilds");
+            //var JSSerializer = new JavaScriptSerializer();
+            //var Data = JSSerializer.ConvertToType<EmailCredentialViewModel>(readData);
+            var parsedData = JToken.Parse(readData);
+            var MailCredentials = (JArray)parsedData.SelectToken("Credentials");
+            var SmtpEssentials = (JArray)parsedData.SelectToken("SmtpEssentials");
+            var MailFields = (JArray)parsedData.SelectToken("MailFeilds");
             //var credentialData = JsonConvert.DeserializeObject<JArray>(readData);
+
+            foreach(var credential in MailCredentials)
+            {
+                Debug.WriteLine(credential);
+            }
+            foreach(var smtpData in SmtpEssentials)
+            {
+                Debug.WriteLine(smtpData);
+            }
+            foreach(var mailField in MailFields)
+            {
+                Debug.WriteLine(mailField);
+            }
+
             //var mailingCredential = new EmailCredentialViewModel()
             //{
             //    Username = credentialData["Credentials"].Username,
