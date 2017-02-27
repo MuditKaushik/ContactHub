@@ -33,5 +33,12 @@ namespace ContactHub_MVC.CommonData.Constants
             public const string EmailRegularexpression = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$";
             public const string NumericNumberOnly = "^[0-9]*$";
         }
+        /**/
+        public struct UnauthorizeErrorMessgae
+        {
+            public const string PageNotFount = "Invalid url.";
+            public const string InternalServer = "Internal server error occured,Please try again later.";
+            public const string UnauthorizeAccess = "Unauthorize access";
+        }
     }
 }

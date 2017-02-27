@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -15,22 +16,30 @@ namespace ContactHub_MVC.Filters
         {
             var IsAjaxRequest = filterContext.HttpContext.Request.IsAjaxRequest();
             var user = filterContext.HttpContext.User;
-            if (IsAjaxRequest && !user.Identity.IsAuthenticated)
+            switch((user != null && !user.Identity.IsAuthenticated))
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index",errorCode="500" }));
-            }
-            else if (user == null || !user.Identity.IsAuthenticated)
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = "500" }));
+                case true:
+                    var routeValue = new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorcode = (int)HttpStatusCode.Unauthorized });
+                    switch (IsAjaxRequest)
+                    {
+                        case true:
+                            filterContext.Result = new RedirectToRouteResult(routeValue);
+                            break;
+                        case false:
+                            filterContext.Result = new RedirectToRouteResult(routeValue);
+                            break;
+                    }
+                    break;
+                case false: break;
             }
         }
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
         {
             var user = filterContext.HttpContext.User;
-            if (user == null || user.Identity.IsAuthenticated)
+            if (user == null || !user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = "500" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = (int)HttpStatusCode.Unauthorized }));
             }
         }
     }

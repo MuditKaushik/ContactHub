@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ContactHub_MVC.Models.AccountModel;
 using ContactHub_MVC.CommonData.Constants;
 using System.Security.Claims;
+using Microsoft
 using ContactHub_MVC.Helper;
 
 namespace ContactHub_MVC.Controllers
@@ -59,5 +60,9 @@ namespace ContactHub_MVC.Controllers
             var countryList = Utility.GetXmlCountryList(Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileXmlPath));
             return Json(countryList, JsonRequestBehavior.AllowGet);
         }
+
+        #region PrivateMethods
+
+        #endregion
     }
 }
