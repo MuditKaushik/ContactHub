@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <a href="@((Request.UrlReferrer != null) ? Request.UrlReferrer.AbsoluteUri : Url.Action("Home", "Index"))" class="btn btn-primary btn-lg btn-block">Back To Home</a>
+            <a href="@((Request.UrlReferrer != null) ? Request.UrlReferrer.AbsoluteUri : "/Home/Index")" class="btn btn-primary btn-lg btn-block">Back To Home</a>
         </div>
     </div>
 }

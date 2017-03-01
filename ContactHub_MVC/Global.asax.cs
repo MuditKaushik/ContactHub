@@ -1,9 +1,10 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Helpers;
 using System.Web.Routing;
+using System.Security.Claims;
 using System.Web.Optimization;
-using System;
-using System.Net;
 
 namespace ContactHub_MVC
 {
@@ -14,6 +15,7 @@ namespace ContactHub_MVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
         protected void Application_Error(object sender, EventArgs e)
         {

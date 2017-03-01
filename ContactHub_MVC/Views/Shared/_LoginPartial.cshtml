@@ -1,4 +1,5 @@
-﻿@if (false)
+﻿@using Microsoft.AspNet.Identity
+@if (!User.Identity.IsAuthenticated)
 {
     <div class="navbar-collapse collapse nav navbar-nav navbar-right userLinks">
         <ul class="nav navbar-nav">
@@ -17,10 +18,13 @@ else
             <li><a href="@Url.Action("Settings","User")" class="userLink settings">Setting</a></li>
         </ul>
     </div>
-    <div class="navbar-collapse collapse nav navbar-nav navbar-right userLinks">
-        <ul class="nav navbar-nav">
-            <li><a href="#">Username</a></li>
-            <li><a href="@Url.Action("Logout","Home")">Logout</a></li>
-        </ul>
-    </div>
+    using (Html.BeginForm("Logout","Home",FormMethod.Post, new { @id="logout"}))
+    {
+        <div class="navbar-collapse collapse nav navbar-nav navbar-right userLinks">
+            <ul class="nav navbar-nav">
+                <li><a href="#">@User.Identity.GetUserName()</a></li>
+                <li><a href='javascript:document.getElementById("logout").submit()'>Logout</a></li>
+            </ul>
+        </div>
+    }
 }

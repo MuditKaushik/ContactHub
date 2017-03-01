@@ -14,6 +14,8 @@ using ContactHub_MVC.Filters;
 namespace ContactHub_MVC.Controllers
 {
     [ContactHubAuthenticationFilter]
+    [ContactHubAuthorizeFilter]
+    [OutputCache(NoStore = true, Duration = 1)]
     public class UserController : Controller
     {
         // GET: User
