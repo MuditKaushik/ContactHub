@@ -53,5 +53,12 @@ class DataAccess extends Utility {
         .then((response)=>{return response})
         .catch((err)=>{return err});
     }
+    /*------Logout on window unload/Browser close or tab close */
+    Logout(){
+        let logoutForm = document.getElementById("logout");
+        if(logoutForm!==null && logoutForm!==undefined){
+            window.location.href = "/Home/Logout";
+        }
+    }
 }
 export{DataAccess}

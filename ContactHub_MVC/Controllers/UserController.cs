@@ -3,18 +3,17 @@ using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using ContactHub_MVC.Helper;
+using ContactHub_MVC.Filters;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
-using ContactHub_MVC.Filters;
 
 namespace ContactHub_MVC.Controllers
 {
-    [ContactHubAuthenticationFilter]
     [ContactHubAuthorizeFilter]
+    [ContactHubAuthenticationFilter]
     [OutputCache(NoStore = true, Duration = 1)]
     public class UserController : Controller
     {
@@ -111,7 +110,7 @@ namespace ContactHub_MVC.Controllers
             }
             var serverPath = Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath);
             var result = await CreateFile(FileType, contactList, serverPath);
-            return Json(new { filename = (result.IsFileCreated) ? result.FileName : null, path = ContactHubConstants.DataPathConstants.DownloadFileMethod }, JsonRequestBehavior.AllowGet);
+            return Json(new { filename = (result.IsFileCreated) ? $"{ContactHubConstants.DataPathConstants.DownloadFileMethod}/{result.FileName}" : null }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -168,25 +167,6 @@ namespace ContactHub_MVC.Controllers
         public ActionResult DeactivateUserAccount(UserSettingViewModel model)
         {
             return Json(model, JsonRequestBehavior.AllowGet);
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<ActionResult> Download(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName)) { return null; }
-            var folder = Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath);
-            var path = Path.Combine(folder, fileName);
-            var fileInfo = new FileInfo(path);
-            switch (fileInfo.Exists)
-            {
-                case true:
-                    var fileBytes = await Utility.FileBytes(path);
-                    await Utility.DeleteFile(path);
-                    return File(fileBytes, ContactHubConstants.FileAttributesConstants.FileContentType, Path.GetFileName(path));
-                case false: await Utility.DeleteFile(path); break;
-            }
-            return null;
         }
 
         #region Private Methods

@@ -68,7 +68,7 @@ $(document).on("click","#download",function(){
     DA.DownloadContactDetails(contactId,Util.FileType().PDF)
     .done((data)=>{
         if(data.filename!==null){
-            window.open(`${data.path}?fileName=${data.filename}`,"_blank");
+            window.open(`${data.path}/${data.filename}`,"_blank");
         }
     })
     .fail((err)=>{
@@ -96,7 +96,7 @@ $(document).on("click","#downloadAll",function(){
         DA.DownloadContactDetails(contactIds,fileType)
             .done((data)=>{
                 if(data.filename!==null){
-                    window.open(`${data.path}?fileName=${data.filename}`,"_blank");
+                    window.open(`${data.filename}`,"_blank");
                 }
             })
             .fail((err)=>{

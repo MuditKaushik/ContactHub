@@ -4,8 +4,9 @@
 }
 
 <div class="row">
-    @using (Ajax.BeginForm("SyncContacts", "User", new AjaxOptions() { }))
+    @using (Ajax.BeginForm("SyncContacts", "User", new AjaxOptions() { HttpMethod = "Post" }))
     {
+        @Html.AntiForgeryToken();
         <div class="col-md-4">
             <div class="page-header">
                 <h2 class="forColorWhite">Sync Contacts</h2>

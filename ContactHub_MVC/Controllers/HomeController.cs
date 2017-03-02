@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -22,15 +23,17 @@ namespace ContactHub_MVC.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToActionPermanent("User", "Dashboard");
+                return RedirectToAction("User", "Dashboard");
             }
             return View();
         }
+
         [HttpGet]
         public ActionResult Registration()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Registration(SignupViewModel model)
         {
@@ -42,12 +45,14 @@ namespace ContactHub_MVC.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<ActionResult> Login(SigninViewModel model)
         {
             await AuthenticateUser(model);
             return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
         }
+
         [HttpGet]
         public ActionResult ForgotPassword()
         {
@@ -58,6 +63,8 @@ namespace ContactHub_MVC.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Clear();
+            Session.Abandon();
             return RedirectToActionPermanent("Login", "Home");
         }
 
@@ -66,6 +73,26 @@ namespace ContactHub_MVC.Controllers
         {
             var countryList = Utility.GetXmlCountryList(Server.MapPath(ContactHubConstants.DataPathConstants.CountryFileXmlPath));
             return Json(countryList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Route("Download/{filename}")]
+        public async Task<ActionResult> Download(string filename)
+        {
+            if (string.IsNullOrEmpty(filename)) { return null; }
+            var folder = Server.MapPath(ContactHubConstants.DataPathConstants.TempFilePath);
+            var path = Path.Combine(folder, filename);
+            var fileInfo = new FileInfo(path);
+            switch (fileInfo.Exists)
+            {
+                case true:
+                    var fileBytes = Utility.FileBytes(path);
+                    var fileDelete = Utility.DeleteFile(path);
+                    await Task.WhenAll(fileBytes, fileDelete);
+                    return File(fileBytes.Result, ContactHubConstants.FileAttributesConstants.FileContentType, Path.GetFileName(path));
+                case false: await Utility.DeleteFile(path); break;
+            }
+            return null;
         }
 
         #region PrivateMethods
@@ -86,8 +113,8 @@ namespace ContactHub_MVC.Controllers
         private async Task AuthenticateUser(SigninViewModel loginDetails)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identityUser = await CreateCustomClaims(loginDetails);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, identityUser);
+            var identityUser = CreateCustomClaims(loginDetails);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, await Task.WhenAll(identityUser));
         }
         private async Task<ClaimsIdentity> CreateCustomClaims(SigninViewModel model)
         {
