@@ -311,6 +311,9 @@
     <Compile Include="ContactHubApplicationStartup.cs" />
     <Compile Include="Controllers\UnauthorizeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataAccessLayer\API_DAL\AccessAPI.cs" />
+    <Compile Include="DataAccessLayer\API_DAL\ApiCrud.cs" />
+    <Compile Include="DataAccessLayer\API_DAL\IApiCrud.cs" />
     <Compile Include="Filters\ContactHubAuthenticationFilter.cs" />
     <Compile Include="Filters\ContactHubAuthorizeFilter.cs" />
     <Compile Include="Helper\Utility.cs" />
