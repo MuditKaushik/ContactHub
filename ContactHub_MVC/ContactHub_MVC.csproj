@@ -86,6 +86,9 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Security.Claims, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Claims.4.3.0\lib\net46\System.Security.Claims.dll</HintPath>
       <Private>True</Private>
@@ -311,7 +314,7 @@
     <Compile Include="ContactHubApplicationStartup.cs" />
     <Compile Include="Controllers\UnauthorizeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DataAccessLayer\API_DAL\AccessAPI.cs" />
+    <Compile Include="DataAccessLayer\AccessAPI.cs" />
     <Compile Include="DataAccessLayer\API_DAL\ApiCrud.cs" />
     <Compile Include="DataAccessLayer\API_DAL\IApiCrud.cs" />
     <Compile Include="Filters\ContactHubAuthenticationFilter.cs" />

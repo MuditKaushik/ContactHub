@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using ContactHub_MVC.Models.AccountModel;
 using ContactHub_MVC.CommonData.Constants;
+using ContactHub_MVC.DataAccessLayer;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -49,8 +50,14 @@ namespace ContactHub_MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(SigninViewModel model)
         {
-            await AuthenticateUser(model);
-            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
+            var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
+            if (result != null)
+            {
+                await AuthenticateUser(result);
+                return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
+            }
+            ViewBag.LoginError ="Invalid username or password";
+            return View(model);
         }
 
         [HttpGet]
