@@ -50,12 +50,13 @@ namespace ContactHub_MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(SigninViewModel model)
         {
-            var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
-            if (result != null)
-            {
-                await AuthenticateUser(result);
-                return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
-            }
+            //var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
+            //if (result != null)
+            //{
+                var apiToken = await AccessAPI<dynamic, SigninViewModel>.GetApiToken(model, "token");
+                //await AuthenticateUser(result);
+                //return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
+            //}
             ViewBag.LoginError ="Invalid username or password";
             return View(model);
         }

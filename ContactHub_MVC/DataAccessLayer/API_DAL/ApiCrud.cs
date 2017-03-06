@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace ContactHub_MVC.DataAccessLayer.API_DAL
 {
@@ -13,7 +14,7 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
         where TRes : class
         where TReq : class
     {
-        private string BaseUrl => @"http://localhost:12345/api";
+        private string BaseUrl => @"http://localhost:7333/api";
         private HttpClient ApiClient { get; set; }
         public ApiCrud()
         {
@@ -22,42 +23,54 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        Task<TRes> IApiCrud<TReq, TRes>.Delete(TReq model,string apiUrl)
+        async Task<TRes> IApiCrud<TReq, TRes>.Delete(TReq model,string apiUrl)
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            HttpResponseMessage response = ApiClient.DeleteAsync(apiUrl).Result;
+            var response = await ApiClient.DeleteAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}");
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
-            return Task.FromResult<TRes>(result);
+            return result;
         }
 
-        Task<TRes> IApiCrud<TReq, TRes>.Get(TReq model, string apiUrl)
+        async Task<TRes> IApiCrud<TReq, TRes>.Get(TReq model, string apiUrl)
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            HttpResponseMessage response = ApiClient.GetAsync(apiUrl).Result;
+            var response = await ApiClient.GetAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}");
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
-            return Task.FromResult<TRes>(result);
+            return result;
         }
 
-        Task<TRes> IApiCrud<TReq, TRes>.Post(TReq model, string apiUrl)
+        async Task<TRes> IApiCrud<TReq, TRes>.Post(TReq model, string apiUrl)
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            var jsonModel = new StringContent(JsonConvert.SerializeObject(model).ToString(),Encoding.UTF8,"application/json");
-            HttpResponseMessage response = ApiClient.PostAsync(apiUrl,jsonModel).Result;
+            var jsonModel = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await ApiClient.PostAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}", CreateHttpContent(model));
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
-            return Task.FromResult<TRes>(null);
+            return result;
         }
 
-        Task<TRes> IApiCrud<TReq, TRes>.Put(TReq model, string apiUrl)
+        async Task<TRes> IApiCrud<TReq, TRes>.Put(TReq model, string apiUrl)
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            var jsonModel = new StringContent(JsonConvert.SerializeObject(model).ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = ApiClient.PutAsync(apiUrl,jsonModel).Result;
+            var jsonModel = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await ApiClient.PutAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}", jsonModel);
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
-            return Task.FromResult<TRes>(null);
+            return result;
         }
+
+        private HttpContent CreateHttpContent(TReq model)
+        {
+            var content = JsonConvert.SerializeObject(model);
+            var contentBytes = Encoding.UTF8.GetBytes(content);
+            var byteContent = new ByteArrayContent(contentBytes);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return byteContent;
+            //return new StringContent(JsonConvert.SerializeObject(model));
+            //return new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+        }
+
     }
 }

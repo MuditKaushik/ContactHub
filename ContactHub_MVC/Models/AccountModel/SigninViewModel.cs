@@ -9,5 +9,6 @@ namespace ContactHub_MVC.Models.AccountModel
         [Display(Name = "Password",ResourceType = typeof(MessageResource))]
         [Required(ErrorMessageResourceType = typeof(MessageResource),ErrorMessageResourceName = "RequiredFeilds")]
         public string Password { get; set; }
+        public string Grant_Type => "password";
     }
 }
