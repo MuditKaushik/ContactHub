@@ -50,7 +50,7 @@ namespace ContactHub_MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(SigninViewModel model)
         {
-            var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
+            var result = AccessAPI<SigninViewModel, dynamic>.AuthenticateUser(model,"token").Result;
             if (result != null)
             {
                 await AuthenticateUser(result);
