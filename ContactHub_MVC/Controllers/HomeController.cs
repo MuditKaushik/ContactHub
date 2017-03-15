@@ -3,7 +3,6 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using ContactHub_MVC.Helper;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using ContactHub_MVC.Models.AccountModel;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.DataAccessLayer;
+using ContactHub_MVC.Helper;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -50,12 +50,13 @@ namespace ContactHub_MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(SigninViewModel model)
         {
-            var result = AccessAPI<SigninViewModel, dynamic>.AuthenticateUser(model,"token").Result;
-            if (result != null)
-            {
-                await AuthenticateUser(result);
-                return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
-            }
+            //var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
+            //if (result != null)
+            //{
+                var apiToken = await AccessAPI<SigninViewModel,dynamic>.GetApiToken(model, "token");
+                //await AuthenticateUser(result);
+                //return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
+            //}
             ViewBag.LoginError ="Invalid username or password";
             return View(model);
         }

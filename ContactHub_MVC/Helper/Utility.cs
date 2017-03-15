@@ -4,24 +4,24 @@ using System.Net;
 using System.Web;
 using System.Linq;
 using System.Text;
-using System.Web.UI;
 using System.Web.Mvc;
+using System.Net.Http;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using iTextSharp.text;
 using System.Net.Mail;
+using System.Diagnostics;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using iTextSharp.text.pdf.parser;
 using System.Collections.Generic;
-using ContactHub_MVC.Models.UserModel;
-using ContactHub_MVC.CommonData.Constants;
-using ContactHub_MVC.Models.MailingModel;
 using System.Web.Script.Serialization;
-using Microsoft.Ajax.Utilities;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
-using System.Diagnostics;
+using ContactHub_MVC.Models.UserModel;
+using ContactHub_MVC.Models.MailingModel;
+using ContactHub_MVC.CommonData.Constants;
+using System.Net.Http.Headers;
 
 namespace ContactHub_MVC.Helper
 {
@@ -175,6 +175,21 @@ namespace ContactHub_MVC.Helper
                 UploadFiles.Add(Files.DistinctBy(x => x.FileName).FirstOrDefault(x => x.FileName.Equals(name)));
             }
             return await Task.FromResult(UploadFiles);
+        }
+
+        public static Task<HttpContent> ConvertRequestObjectToHttpContent(dynamic requestObject)
+        {
+            var convertToJson = JsonConvert.SerializeObject(requestObject);
+            var encodingJsonToBytes = Encoding.UTF8.GetBytes(convertToJson);
+            var byteContent = new ByteArrayContent(encodingJsonToBytes);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            return Task.FromResult<HttpContent>(byteContent);
+        }
+
+        public static Task<string> ConvertToInlineRequest(ViewDataDictionary ViewModel)
+        {
+            var jsonData = JsonConvert.SerializeObject(ViewModel);
+            return null;
         }
 
         #region PrivateMethods

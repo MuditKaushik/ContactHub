@@ -3,7 +3,14 @@ import {ValidationUtil} from './validationUtil.js';
 
 let DA = new DataAccess();
 let Util = new ValidationUtil();
+class AjaxMethod
+{
+    constructor() {}
+    GetData(data){
+        debugger;
+    }
 
+}
 DA.GetAccountReasons()
     .done((data)=>{
         let targetId = $("#reason");
@@ -24,3 +31,5 @@ $(document).on("change","#reason",function(){
     }
     return;
 });
+
+export {AjaxMethod}

@@ -15,9 +15,9 @@
             <div class="panel-body">
                 @using (Ajax.BeginForm("UpdatePassword","User",new AjaxOptions() {
                     HttpMethod = "Post",
-                    OnSuccess= "GetData()",
-                    OnFailure= "GetData()",
-                    OnComplete = "GetData()"
+                    OnSuccess= "ajax.GetData(data)",
+                    OnFailure= "ajax.GetData(data)",
+                    OnComplete = "ajax.GetData(data)"
                 }))
                 {
                 <div class="form-horizontal" role="form">
@@ -60,7 +60,7 @@
             <div class="panel-body">
                 @using (Ajax.BeginForm("ChangeUserInformation","User",new AjaxOptions() {
                     HttpMethod = "Post",
-                    OnSuccess = "GetData()",
+                    OnSuccess = "ajax.GetData()",
                     OnComplete = "GetData()",
                     OnFailure = "GetData()"
                 }))

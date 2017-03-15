@@ -20,5 +20,9 @@ namespace ContactHub_MVC.DataAccessLayer
         {
             return await ApiCaller.Post(model, apiUrl);
         }
+        public static async Task<TRes> GetApiToken(TReq model,string apiUrl)
+        {
+            return await ApiCaller.Post(model, apiUrl);
+        }
     }
 }
