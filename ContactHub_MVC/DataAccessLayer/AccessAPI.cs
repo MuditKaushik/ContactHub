@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.DataAccessLayer.API_DAL;
 
 namespace ContactHub_MVC.DataAccessLayer
@@ -8,21 +9,21 @@ namespace ContactHub_MVC.DataAccessLayer
         where TReq : class
     {
         private static IApiCrud<TReq, TRes> ApiCaller = new ApiCrud<TReq, TRes>();
-        public static async Task<TRes> AuthenticateUser(TReq model,string apiUrl)
+        public static async Task<TRes> AuthenticateUser(TReq model, string apiUrl)
         {
             return await ApiCaller.Post(model, apiUrl);
         }
-        public static async Task<TRes> FindUser(TReq model,string apiUrl)
+        public static async Task<TRes> FindUser(TReq model, string apiUrl)
         {
             return await ApiCaller.Get(model, apiUrl);
         }
-        public static async Task<TRes> RegisterUser(TReq model,string apiUrl)
+        public static async Task<TRes> RegisterUser(TReq model, string apiUrl)
         {
             return await ApiCaller.Post(model, apiUrl);
         }
-        public static async Task<TRes> GetApiToken(TReq model,string apiUrl)
+        public static async Task<TRes> GetApiToken(TReq model, string apiUrl, HttpContentTypes contentType)
         {
-            return await ApiCaller.Post(model, apiUrl);
+            return await ApiCaller.Post(model, apiUrl, contentType);
         }
     }
 }

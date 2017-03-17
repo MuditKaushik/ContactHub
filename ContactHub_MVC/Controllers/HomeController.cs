@@ -15,7 +15,7 @@ using ContactHub_MVC.Helper;
 
 namespace ContactHub_MVC.Controllers
 {
-    [OutputCache(NoStore = true,Duration = 1)]
+    [OutputCache(NoStore = true, Duration = 1)]
     public class HomeController : Controller
     {
         // GET: Home
@@ -53,11 +53,11 @@ namespace ContactHub_MVC.Controllers
             //var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
             //if (result != null)
             //{
-                var apiToken = await AccessAPI<SigninViewModel,dynamic>.GetApiToken(model, "token");
-                //await AuthenticateUser(result);
-                //return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
+            var apiToken = await AccessAPI<SigninViewModel, UserToken>.GetApiToken(model, "token", HttpContentTypes.ConvertToEncodedUrl);
+            await AuthenticateUser(model, apiToken.Authorize);
+            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
             //}
-            ViewBag.LoginError ="Invalid username or password";
+            ViewBag.LoginError = "Invalid username or password";
             return View(model);
         }
 
@@ -118,21 +118,22 @@ namespace ContactHub_MVC.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-        private async Task AuthenticateUser(SigninViewModel loginDetails)
+        private async Task AuthenticateUser(SigninViewModel loginDetails, string Token)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identityUser = CreateCustomClaims(loginDetails);
+            var identityUser = CreateCustomClaims(loginDetails, Token);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, await Task.WhenAll(identityUser));
         }
-        private async Task<ClaimsIdentity> CreateCustomClaims(SigninViewModel model)
+        private async Task<ClaimsIdentity> CreateCustomClaims(SigninViewModel model, string Token)
         {
             var claims = new List<Claim>() {
                 new Claim(ClaimTypes.NameIdentifier,"1"),
                 new Claim(ClaimsIdentity.DefaultNameClaimType,model.Username),
-                new Claim(ClaimTypes.Authentication,"ContactHub"),
+                new Claim(ClaimTypes.Authentication,Token),
                 new Claim(ClaimTypes.SerialNumber,Guid.NewGuid().ToString()),
             };
             var identityClaims = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+            //Thread.CurrentPrincipal = new ClaimsPrincipal(identityClaims);
             return await Task.FromResult(identityClaims);
         }
         #endregion

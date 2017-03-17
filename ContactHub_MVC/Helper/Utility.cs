@@ -22,6 +22,7 @@ using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.Models.MailingModel;
 using ContactHub_MVC.CommonData.Constants;
 using System.Net.Http.Headers;
+using System.Reflection;
 
 namespace ContactHub_MVC.Helper
 {
@@ -190,6 +191,16 @@ namespace ContactHub_MVC.Helper
         {
             var jsonData = JsonConvert.SerializeObject(ViewModel);
             return null;
+        }
+
+        public static Task<Dictionary<string,string>> CovertToDictionary(object inputData)
+        {
+            var DictionaryObject = new Dictionary<string, string>();
+            foreach(var item in inputData.GetType().GetProperties())
+            {
+                DictionaryObject.Add(item.Name, item.GetValue(inputData).ToString());
+            }
+            return Task.FromResult(DictionaryObject);
         }
 
         #region PrivateMethods
