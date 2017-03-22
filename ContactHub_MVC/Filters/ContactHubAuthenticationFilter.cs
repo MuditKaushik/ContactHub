@@ -1,6 +1,9 @@
 ﻿using System.Net;
+using System.Linq;
 using System.Web.Mvc;
+using System.Threading;
 using System.Web.Routing;
+using System.Security.Claims;
 using System.Web.Mvc.Filters;
 
 namespace ContactHub_MVC.Filters
@@ -33,7 +36,9 @@ namespace ContactHub_MVC.Filters
         {
             var context = filterContext.HttpContext;
             var contextUser = context.User.Identity;
-            if (contextUser == null || !contextUser.IsAuthenticated)
+            var contextToken = (ClaimsIdentity)Thread.CurrentPrincipal.Identity;
+            var HasToken = contextToken.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Authentication).Value;
+            if (contextUser == null || !contextUser.IsAuthenticated || string.IsNullOrEmpty(HasToken))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Unauthorize", action = "Index", errorCode = (int)HttpStatusCode.Unauthorized }));
             }

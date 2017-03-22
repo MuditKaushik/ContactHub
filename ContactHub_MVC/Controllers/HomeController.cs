@@ -12,6 +12,7 @@ using ContactHub_MVC.Models.AccountModel;
 using ContactHub_MVC.CommonData.Constants;
 using ContactHub_MVC.DataAccessLayer;
 using ContactHub_MVC.Helper;
+using System.Threading;
 
 namespace ContactHub_MVC.Controllers
 {
@@ -24,7 +25,7 @@ namespace ContactHub_MVC.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("User", "Dashboard");
+                return RedirectToAction("Dashboard", "User");
             }
             return View();
         }
@@ -36,8 +37,9 @@ namespace ContactHub_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(SignupViewModel model)
+        public async Task<ActionResult> Registration(SignupViewModel model)
         {
+            var signup = await AccessAPI<SignupViewModel, SignupViewModel>.RegisterUser(model, "anonymous/signup");
             return View(model);
         }
 
@@ -53,8 +55,9 @@ namespace ContactHub_MVC.Controllers
             //var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
             //if (result != null)
             //{
-            var apiToken = await AccessAPI<SigninViewModel, UserToken>.GetApiToken(model, "token", HttpContentTypes.ConvertToEncodedUrl);
-            await AuthenticateUser(model, apiToken.Authorize);
+            var apiToken = AccessAPI<SigninViewModel, UserToken>.GetApiToken(model, "token", HttpContentTypes.ConvertToEncodedUrl);
+            await Task.WhenAll(apiToken);
+            await AuthenticateUser(model, apiToken.Result);
             return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
             //}
             ViewBag.LoginError = "Invalid username or password";
@@ -118,22 +121,22 @@ namespace ContactHub_MVC.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-        private async Task AuthenticateUser(SigninViewModel loginDetails, string Token)
+        private async Task AuthenticateUser(SigninViewModel loginDetails, UserToken tokenModel)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identityUser = CreateCustomClaims(loginDetails, Token);
+            var identityUser = CreateCustomClaims(loginDetails, tokenModel);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, await Task.WhenAll(identityUser));
         }
-        private async Task<ClaimsIdentity> CreateCustomClaims(SigninViewModel model, string Token)
+        private async Task<ClaimsIdentity> CreateCustomClaims(SigninViewModel model, UserToken tokenModel)
         {
             var claims = new List<Claim>() {
                 new Claim(ClaimTypes.NameIdentifier,"1"),
                 new Claim(ClaimsIdentity.DefaultNameClaimType,model.Username),
-                new Claim(ClaimTypes.Authentication,Token),
+                new Claim(ClaimTypes.Authentication,tokenModel.Access_Token),
                 new Claim(ClaimTypes.SerialNumber,Guid.NewGuid().ToString()),
             };
             var identityClaims = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-            //Thread.CurrentPrincipal = new ClaimsPrincipal(identityClaims);
+            Thread.CurrentPrincipal = new ClaimsPrincipal(identityClaims);
             return await Task.FromResult(identityClaims);
         }
         #endregion

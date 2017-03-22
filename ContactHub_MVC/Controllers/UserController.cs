@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using ContactHub_MVC.Models.UserModel;
 using ContactHub_MVC.CommonData.Constants;
-using Microsoft.AspNet.Identity;
-using System.Security.Claims;
+using ContactHub_MVC.DataAccessLayer;
 
 namespace ContactHub_MVC.Controllers
 {

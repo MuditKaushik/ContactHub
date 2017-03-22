@@ -193,7 +193,21 @@ namespace ContactHub_MVC.Helper
             return null;
         }
 
-        public static Task<Dictionary<string,string>> CovertToDictionary(object inputData)
+        public static Task<HttpContent> GetContent(object model, HttpContentTypes? contentType)
+        {
+            switch (contentType)
+            {
+                case HttpContentTypes.ConvertToEncodedUrl:
+                    var DictionaryModel = CovertToDictionary(model).Result;
+                    var FormUrlEncodedContent = new FormUrlEncodedContent(DictionaryModel);
+                    return Task.FromResult<HttpContent>(FormUrlEncodedContent);
+                default:
+                    var JsonContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                    return Task.FromResult<HttpContent>(JsonContent);
+            }
+        }
+
+        private static Task<Dictionary<string,string>> CovertToDictionary(object inputData)
         {
             var DictionaryObject = new Dictionary<string, string>();
             foreach(var item in inputData.GetType().GetProperties())
