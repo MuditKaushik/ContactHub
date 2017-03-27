@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net;
 
 namespace ContactHub_MVC.DataAccessLayer.API_DAL
 {
@@ -19,15 +21,14 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
         public ApiCrud()
         {
             ApiClient = new HttpClient();
-            ApiClient.BaseAddress = new Uri(BaseUrl);
             ApiClient.DefaultRequestHeaders.Accept.Clear();
-            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
         }
         async Task<TRes> IApiCrud<TReq, TRes>.Delete(TReq model,string apiUrl)
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            var response = await ApiClient.DeleteAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}");
+            var response = await ApiClient.DeleteAsync($"{BaseUrl}/{apiUrl}");
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
             return result;
         }
@@ -36,7 +37,7 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            var response = await ApiClient.GetAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}");
+            var response = await ApiClient.GetAsync($"{BaseUrl}/{apiUrl}");
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
             return result;
         }
@@ -45,9 +46,9 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
         {
             if (model == null)
                 throw new ArgumentNullException("Object null");
-            var jsonModel = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await ApiClient.PostAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}", CreateHttpContent(model));
-            var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
+            var httpContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/x-www-form-urlencoded");
+            var response = await ApiClient.PostAsync($"{BaseUrl}/{apiUrl}", httpContent);
+            var result = JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
             return result;
         }
 
@@ -56,7 +57,7 @@ namespace ContactHub_MVC.DataAccessLayer.API_DAL
             if (model == null)
                 throw new ArgumentNullException("Object null");
             var jsonModel = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await ApiClient.PutAsync($"{ApiClient.BaseAddress.AbsoluteUri}/{apiUrl}", jsonModel);
+            var response = await ApiClient.PutAsync($"{BaseUrl}/{apiUrl}", jsonModel);
             var result = (!response.IsSuccessStatusCode) ? null : JsonConvert.DeserializeObject<TRes>(response.Content.ReadAsStringAsync().Result);
             return result;
         }

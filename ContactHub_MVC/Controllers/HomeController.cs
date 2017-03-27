@@ -53,7 +53,7 @@ namespace ContactHub_MVC.Controllers
             //var result = AccessAPI<SigninViewModel, SigninViewModel>.AuthenticateUser(model,"AuthorizeUser").Result;
             //if (result != null)
             //{
-                var apiToken = await AccessAPI<dynamic, SigninViewModel>.GetApiToken(model, "token");
+                var apiToken = await AccessAPI<SigninViewModel,dynamic>.GetApiToken(model, "token");
                 //await AuthenticateUser(result);
                 //return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Dashboard" }));
             //}
