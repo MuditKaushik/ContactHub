@@ -15,4 +15,9 @@ namespace ContactHub_MVC.CommonData.Constants
     {
 
     }
+
+    public enum HttpContentTypes
+    {
+        ConvertToEncodedUrl = 1
+    }
 }

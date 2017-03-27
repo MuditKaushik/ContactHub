@@ -351,6 +351,7 @@
     <Compile Include="Models\AccountModel\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountModel\SigninViewModel.cs" />
     <Compile Include="Models\AccountModel\SignupViewModel.cs" />
+    <Compile Include="Models\AccountModel\UserToken.cs" />
     <Compile Include="Models\MailingModel\EmailCredentialViewModel.cs" />
     <Compile Include="Models\MailingModel\MailingFailureViewModel.cs" />
     <Compile Include="Models\UserModel\AddContactsViewModel.cs" />
